@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* needed for container min-height */
+}
+
+.ork-bg {
+  background-color: hsl(0, 0%, 96%);
+  height: 100vh !important;
+}
+
+.ork-description {
+  color: hsl(217, 10%, 50.8%)
+}
+
+
+
