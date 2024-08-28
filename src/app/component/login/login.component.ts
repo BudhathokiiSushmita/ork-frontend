@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import { ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit{
 
   form: FormGroup = new FormGroup({});
   constructor(
-    private builder: FormBuilder
+    private builder: FormBuilder,
+    private toast: ToastrService
   ) {
   }
   ngOnInit(): void {
@@ -28,11 +30,10 @@ export class LoginComponent implements OnInit{
 
   submit() {
     if (this.form.invalid) {
-      alert("Please fill out form")
+      this.toast.error("Please fill out all details.")
     } else {
       console.log("submitted data", this.form.value);
-
+      this.toast.success("Submitted successfully", 'Success')
     }
   }
-
 }
