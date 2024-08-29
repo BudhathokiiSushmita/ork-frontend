@@ -7,9 +7,7 @@ import {CommonModule, NgSwitchCase} from "@angular/common";
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    LoginComponent, HomeComponent, NgSwitchCase, CommonModule
-  ],
+  imports: [],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

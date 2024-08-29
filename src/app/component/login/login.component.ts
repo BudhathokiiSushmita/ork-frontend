@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import { ToastrService} from "ngx-toastr";
 import {UserService} from "../../service/user.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit{
   constructor(
     private builder: FormBuilder,
     private toast: ToastrService,
-    private userService: UserService
+    private userService: UserService,
+    private route: Router
   ) {
   }
   ngOnInit(): void {
@@ -34,12 +36,9 @@ export class LoginComponent implements OnInit{
     if (this.form.invalid) {
       this.toast.error("Please fill out all details.")
     } else {
-      console.log("submitted data", this.form.value);
       this.userService.authenticate(this.form.value).subscribe({
         next: (res) => {
-          console.log('res', res);
-          this.toast.success("Submitted successfully", 'Success')
-
+          this.route.navigate(["/dashboard"]);
         }
       })
     }
