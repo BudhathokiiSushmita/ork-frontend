@@ -21,7 +21,19 @@ export class RoleService {
         // this.toastr.success(res.message);
       }),
       catchError((err) => {
-        this.toastr.error(err.error.message);
+        // this.toastr.error(err.error.message);
+        return throwError(err);
+      })
+    );
+  }
+
+  getAllNavPermissionByRole() :Observable<any> {
+    return this.http.get(`${this.url}/all-by-role`).pipe(
+      tap((res: any) => {
+        // this.toastr.success(res.message);
+      }),
+      catchError((err) => {
+        // this.toastr.error(err.error.message);
         return throwError(err);
       })
     );
