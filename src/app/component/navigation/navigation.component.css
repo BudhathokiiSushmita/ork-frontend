@@ -1,0 +1,28 @@
+.nav-container {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+.nav-sidenav {
+  padding: 12px;
+  background: #4e578c;
+}
+
+.ork-nav-item {
+  background: #303860;
+  color: white;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+
+.ork-nav-item p{
+  padding: 9px !important;
+}

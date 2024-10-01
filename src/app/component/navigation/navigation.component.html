@@ -1,0 +1,17 @@
+<mat-drawer-container class="nav-container" autosize>
+  <mat-drawer #drawer class="nav-sidenav" mode="side">
+    <div class="row ork-nav-item" *ngFor="let nav of items" (click)="redirect(nav.name)">
+      <div class="col-12">
+        <p> {{nav.name}} </p>
+      </div>
+    </div>
+  </mat-drawer>
+
+  <div>
+    <button type="button" mat-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-drawer-container>
