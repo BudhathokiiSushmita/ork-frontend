@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {RoleService} from "../../service/role.service";
 import {CommonModule} from "@angular/common";
 import {NgxSelectModule} from "ngx-select-ex";
@@ -20,10 +20,8 @@ import {Router} from "@angular/router";
 })
 export class RegisterComponent implements OnInit{
   form: FormGroup = new FormGroup<any>({});
-  roles: RoleModel[] = [];
   constructor(
     private builder: FormBuilder,
-    private roleService: RoleService,
     private toastr: ToastrService,
     private userService: UserService,
     private router: Router
@@ -31,16 +29,7 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.fetchData();
     this.buildForm();
-  }
-
-  fetchData() {
-    this.roleService.getAllRoles().subscribe({
-      next: (res: any) => {
-        this.roles = res.body;
-      }
-    })
   }
 
   buildForm() {

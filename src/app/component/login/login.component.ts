@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import { ToastrService} from "ngx-toastr";
 import {UserService} from "../../service/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit{
     private builder: FormBuilder,
     private toast: ToastrService,
     private userService: UserService,
-    private route: Router
+    private route: Router,
   ) {
   }
   ngOnInit(): void {
@@ -37,8 +38,10 @@ export class LoginComponent implements OnInit{
       this.toast.error("Please fill out all details.")
     } else {
       this.userService.authenticate(this.form.value).subscribe({
-        next: (res) => {
-          this.route.navigate(["/dashboard"]);
+        next: (res: any) => {
+          localStorage.setItem("token",res.body.accessToken );
+          // this.authService.setTokenDetail(res.body.token, res.body.accessToken);
+          this.route.navigate(["/nav"]);
         }
       })
     }

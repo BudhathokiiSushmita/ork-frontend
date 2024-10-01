@@ -7,33 +7,25 @@ import {catchError, Observable, tap, throwError} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class RoleService {
+export class NavigationService {
 
-  url = APIConstant.ROLE_API;
+  url = APIConstant.NAV_PERMISSION_API;
   constructor(
     private http: HttpClient,
     private toastr: ToastrService
   ) { }
 
-  getAllRoles() :Observable<any> {
+  getAllNavPermission(): Observable<any> {
     return this.http.get(`${this.url}/all`).pipe(
       tap((res: any) => {
         // this.toastr.success(res.message);
       }),
       catchError((err) => {
-        // this.toastr.error(err.error.message);
-        return throwError(err);
-      })
-    );
-  }
-
-  getAllNavPermissionByRole() :Observable<any> {
-    return this.http.get(`${this.url}/all-by-role`).pipe(
-      tap((res: any) => {
-        // this.toastr.success(res.message);
-      }),
-      catchError((err) => {
-        // this.toastr.error(err.error.message);
+        if(err.error) {
+          this.toastr.error(err.error.message);
+        } else {
+          this.toastr.error("Unauthorized");
+        }
         return throwError(err);
       })
     );
