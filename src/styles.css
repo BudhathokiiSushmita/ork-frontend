@@ -22,3 +22,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .navbar {
   background: #4e578c !important;
 }
+
+.ork-add-btn:hover, .ork-fill-btn{
+  background: #4e578c !important;
+  color: white !important;
+}
+
+.ork-add-btn{
+  background: white !important;
+  color: #4e578c !important;
+  border-color: #4e578c !important;
+}
+
+.row {
+  width: 100%;
+}
+
