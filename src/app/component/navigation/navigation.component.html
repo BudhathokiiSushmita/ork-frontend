@@ -1,5 +1,5 @@
 <mat-drawer-container class="nav-container" autosize>
-  <mat-drawer #drawer class="nav-sidenav" mode="side">
+  <mat-drawer #drawer class="nav-sidenav" mode="side" [opened]="true">
     <div class="row ork-nav-item" *ngFor="let nav of items" (click)="redirect(nav.name)">
       <div class="col-12">
         <p> {{nav.name}} </p>

@@ -3,7 +3,7 @@
 
     <!-- Add ms-auto to the ul element to push it to the end -->
     <div class="collapse navbar-collapse pe-5">
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto" *ngIf="!token;else loggedInNav">
             <li class="nav-item">
                 <a class="nav-link text-white" href="/login">Login</a>
             </li>
@@ -11,6 +11,14 @@
                 <a class="nav-link text-white" href="/register">Register</a>
             </li>
         </ul>
+      <ng-template #loggedInNav>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/login" (click)="logout()">Logout</a>
+          </li>
+        </ul>
+      </ng-template>
+
     </div>
 </nav>
 

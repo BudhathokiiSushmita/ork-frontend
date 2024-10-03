@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import { ToastrService} from "ngx-toastr";
 import {UserService} from "../../service/user.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AuthService} from "../../service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -28,8 +27,8 @@ export class LoginComponent implements OnInit{
 
   buildForm() {
     this.form = this.builder.group({
-      username: [undefined, Validators.required],
-      password: [undefined, Validators.required]
+      username: ["admin", Validators.required],
+      password: ["Admin@123456", Validators.required]
     })
   }
 
@@ -41,7 +40,7 @@ export class LoginComponent implements OnInit{
         next: (res: any) => {
           localStorage.setItem("token",res.body.accessToken );
           // this.authService.setTokenDetail(res.body.token, res.body.accessToken);
-          this.route.navigate(["/nav"]);
+          window.location.reload();
         }
       })
     }
