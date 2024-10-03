@@ -38,7 +38,6 @@ export class NavigationComponent implements OnInit{
     this.roleService.getAllNavPermissionByRole().subscribe({
       next : (res: any) => {
         this.items = res.body;
-        console.log("items", this.items);
       }
     })
   }

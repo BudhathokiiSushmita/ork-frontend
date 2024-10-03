@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit{
 
   buildForm() {
     this.form = this.builder.group({
-      username: [undefined, Validators.required],
-      password: [undefined, Validators.required]
+      username: ["admin", Validators.required],
+      password: ["Admin@123456", Validators.required]
     })
   }
 
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit{
         next: (res: any) => {
           localStorage.setItem("token",res.body.accessToken );
           // this.authService.setTokenDetail(res.body.token, res.body.accessToken);
-          this.route.navigate(["/nav"]);
+          window.location.reload();
         }
       })
     }

@@ -7,13 +7,14 @@ import {CommonModule, NgSwitchCase} from "@angular/common";
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit{
 
   segment: string | undefined;
+  token: string | null = null;
   constructor(
     private router: Router
   ) {
@@ -21,7 +22,14 @@ export class HeaderComponent implements OnInit{
 
   ngOnInit(): void {
     this.segment = this.router.url;
-    console.log('segment', this.segment)
+    this.token = localStorage.getItem("token") as string;
+    if (this.token) {
+      this.router.navigate(["/nav"]);
+    }
+  }
+
+  logout() {
+    localStorage.removeItem("token");
   }
 
 }
