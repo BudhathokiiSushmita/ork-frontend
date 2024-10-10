@@ -38,4 +38,31 @@ export class UserService {
       })
     );
   }
+
+  save(obj: any): Observable<any> {
+    //role in the select bar and then save
+    return this.http.post(`${Environment.baseUrl}${this.url}/save`, obj).pipe(
+      tap((res: any) => {
+        this.toastr.success(res.message);
+      }),
+      catchError((err) => {
+        this.toastr.error(err.error.message);
+        return throwError(err);
+      })
+    );
+  }
+
+  getAll(showToast: Boolean): Observable<any> {
+    return this.http.get(`${Environment.baseUrl}${this.url}/list`).pipe(
+      tap((res: any) => {
+        if(showToast) {
+          this.toastr.success(res.message);
+        }
+      }),
+      catchError((err) => {
+        this.toastr.error(err.error.message);
+        return throwError(err);
+      })
+    );
+  }
 }
