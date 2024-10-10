@@ -19,7 +19,7 @@ export class CompanyComponent implements OnInit{
   }
 
   fetchData() {
-    this.roleService.getAllRoles().subscribe({
+    this.roleService.getRolesAndPermission().subscribe({
       next: (res: any) => {
         console.log('roles', res);
       }
