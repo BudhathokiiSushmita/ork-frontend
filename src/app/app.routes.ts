@@ -6,6 +6,7 @@ import {RegisterComponent} from "./component/register/register.component";
 import {NavigationComponent} from "./component/navigation/navigation.component";
 import {CompanyComponent} from "./component/company/company.component";
 import {SectorComponent} from "./component/sector/sector.component";
+import {UserComponent} from "./component/user/user.component";
 
 export const routes: Routes = [
 
@@ -44,6 +45,10 @@ export const routes: Routes = [
       {
         path: 'sector',
         component: SectorComponent
+      },
+      {
+        path: 'user',
+        component: UserComponent
       }]
   },
 ];

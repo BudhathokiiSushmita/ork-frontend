@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-9 float-left">
+      <h6 class="modal-title">Add User</h6>
+    </div>
+    <div class="col-3 d-flex justify-content-end">
+      <button mat-mini-fab aria-label="Close" class="float-right" (click)="activeModal.dismiss()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="submit()" [formGroup]="form">
+    <div class="form-outline mb-4">
+      <input type="text" id="username" class="form-control" formControlName="username" required/>
+      <label class="form-label" for="username">Username</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <input type="text" id="contactNumber" class="form-control" formControlName="contactNumber" required/>
+      <label class="form-label" for="contactNumber">Contact Number</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <input type="email" id="emailAddress" class="form-control" formControlName="emailAddress" required/>
+      <label class="form-label" for="emailAddress">Email Address</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <select name="role" id="role"
+              class="form-select" formControlName="role">
+        <option *ngFor="let option of roles" [value]="option" [disabled]="true">
+          {{option}}
+        </option>
+      </select>
+      <label class="form-label" for="role">Role</label>
+    </div>
+
+
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-dark" (click)="activeModal.dismiss()">Close</button>
+  <button type="button" class="btn btn-primary ork-fill-btn" (click)="submit()">Save changes</button>
+</div>

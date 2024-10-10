@@ -15,6 +15,18 @@ export class RoleService {
     private toastr: ToastrService
   ) { }
 
+  getRolesAndPermission() :Observable<any> {
+    return this.http.get(`${this.url}/all-nav-permission`).pipe(
+      tap((res: any) => {
+        // this.toastr.success(res.message);
+      }),
+      catchError((err) => {
+        // this.toastr.error(err.error.message);
+        return throwError(err);
+      })
+    );
+  }
+
   getAllRoles() :Observable<any> {
     return this.http.get(`${this.url}/all`).pipe(
       tap((res: any) => {
