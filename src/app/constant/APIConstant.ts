@@ -5,6 +5,7 @@ export const APIConstant = {
   ROLE_API : `${Environment.baseUrl}/roles`,
   NAV_PERMISSION_API : `${Environment.baseUrl}/nav-permissions`,
   SECTOR_API : `${Environment.baseUrl}/sector`,
+  COMPANY_API: `${Environment.baseUrl}/company`
 }
 
 export const ROLEConstant = {

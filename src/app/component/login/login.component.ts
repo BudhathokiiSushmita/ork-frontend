@@ -2,7 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import { ToastrService} from "ngx-toastr";
 import {UserService} from "../../service/user.service";
-import {Router} from "@angular/router";
+import {CompanyService} from "../../service/company.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddCompanyComponent} from "../company/add-company/add-company.component";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +21,9 @@ export class LoginComponent implements OnInit{
     private builder: FormBuilder,
     private toast: ToastrService,
     private userService: UserService,
-    private route: Router,
+    private companyService: CompanyService,
+    private modalService: NgbModal,
+    private authService: AuthService
   ) {
   }
   ngOnInit(): void {
@@ -38,11 +43,40 @@ export class LoginComponent implements OnInit{
     } else {
       this.userService.authenticate(this.form.value).subscribe({
         next: (res: any) => {
-          localStorage.setItem("token",res.body.accessToken );
-          // this.authService.setTokenDetail(res.body.token, res.body.accessToken);
-          window.location.reload();
+          // Not saving in localstorage to avoid accidental login when page is refreshed.
+          // This is one-time use as when you refresh this is erased.
+          this.authService.setToken(res.body.accessToken);
+
+          // Checking whether Company exists for RECRUITER
+          this.checkCompanyBasedOnRole(res.body.accessToken);
         }
       })
     }
+  }
+
+  checkCompanyBasedOnRole(token: any) {
+    this.companyService.checkIfCompanyExistsByCurrentUser().subscribe({
+      next: (res: any) => {
+        if (res.body) {
+          // this means user is not Recruiter
+          this.markAsLoggedIn(token);
+        } else {
+          //needs to open modal to create company and only then reload the window
+          const dialogRef = this.modalService.open(AddCompanyComponent,);
+          dialogRef.result.then(
+            (res: any) => {
+              this.markAsLoggedIn(token);
+            })
+        }
+      }
+    })
+  }
+
+  markAsLoggedIn(token: any) {
+    localStorage.setItem("token", token);
+    this.toast.success("Successfully logged in");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
 }
