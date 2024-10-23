@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-9 float-left">
+      <h6 class="modal-title">Add Company</h6>
+    </div>
+    <div class="col-3 d-flex justify-content-end">
+      <button mat-mini-fab aria-label="Close" class="float-right" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</div>
+<div class="modal-body">
+<span>
+  <div class="alert alert-danger">
+    <h5>Note:</h5>
+    <p>As a recruiter, you must be linked to a company to proceed. You won't be able to continue without a company association.</p>
+  </div>
+</span>
+  <form (ngSubmit)="submit()" [formGroup]="form">
+    <div class="form-outline mb-4">
+      <input type="text" id="name" class="form-control" formControlName="name" required/>
+      <label class="form-label" for="name">Name</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <input type="text" id="address" class="form-control" formControlName="address" required/>
+      <label class="form-label" for="name">Address</label>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-dark" (click)="close()">Close</button>
+  <button type="button" class="btn btn-primary ork-fill-btn" (click)="submit()">Save changes</button>
+</div>
