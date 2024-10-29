@@ -43,4 +43,16 @@ export class CompanyService {
       })
     );
   }
+
+  getAllCompanies(): Observable<any> {
+    return this.http.get(`${this.url}/get-all-companies`).pipe(
+      tap((res: any) => {
+          this.toastr.success(res.message);
+      }),
+      catchError((err) => {
+        this.toastr.error(err.error.message);
+        return throwError(err);
+      })
+    );
+  }
 }
