@@ -1,0 +1,44 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-9 float-left">
+      <h6 class="modal-title">Post Vacancy</h6>
+    </div>
+    <div class="col-3 d-flex justify-content-end">
+      <button mat-mini-fab aria-label="Close" class="float-right" (click)="activeModal.dismiss()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="submit()" [formGroup]="form">
+    <div class="form-outline mb-4">
+      <input type="text" id="title" class="form-control" formControlName="title" required/>
+      <label class="form-label" for="title">Vacancy title</label>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="form-outline">
+          <input type="text" id="vacancyType" class="form-control" formControlName="vacancyType" required/>
+          <label class="form-label" for="vacancyType">Vacancy Type</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-outline">
+          <input type="text" id="isPaidPosition" class="form-control" formControlName="isPaidPosition" required/>
+          <label class="form-label" for="isPaidPosition">Is Vacancy Paid?</label>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-dark" (click)="activeModal.dismiss()">Close</button>
+  <button type="button" class="btn btn-primary ork-fill-btn" (click)="submit()">Save changes</button>
+</div>
