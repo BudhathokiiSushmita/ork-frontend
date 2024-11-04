@@ -33,11 +33,68 @@
       </div>
     </div>
 
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="form-outline">
+          <input type="text" id="positionNumber" class="form-control" formControlName="positionNumber" required/>
+          <label class="form-label" for="positionNumber">No. of position required</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-outline">
+          <input type="text" id="salaryRange" class="form-control" formControlName="salaryRange" required/>
+          <label class="form-label" for="salaryRange">Salary Range (From - To)</label>
+        </div>
+      </div>
+    </div>
 
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="form-outline">
+          <input type="date" id="startDate" class="form-control" formControlName="startDate" required/>
+          <label class="form-label" for="startDate">Job starts from</label>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-outline">
+          <input type="date" id="deadline" class="form-control" formControlName="deadline" required/>
+          <label class="form-label" for="deadline">Application Deadline</label>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-outline mb-4">
+      <ckeditor [editor]="Editor" formControlName="description" id="description"></ckeditor>
+      <label class="form-label" for="description">Description</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <ckeditor [editor]="Editor" formControlName="requirement" id="requirement"></ckeditor>
+      <label class="form-label" for="requirement">Requirement</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <ckeditor [editor]="Editor" formControlName="qualification" id="qualification"></ckeditor>
+      <label class="form-label" for="qualification">Qualification</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <ckeditor [editor]="Editor" formControlName="documentRequirement" id="documentRequirement"></ckeditor>
+      <label class="form-label" for="qualification">Document Required</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <ckeditor [editor]="Editor" formControlName="applicationProcedure" id="applicationProcedure"></ckeditor>
+      <label class="form-label" for="applicationProcedure">Application procedure</label>
+    </div>
 
 
   </form>
 </div>
+
+
 <div class="modal-footer">
   <button type="button" class="btn btn-dark" (click)="activeModal.dismiss()">Close</button>
   <button type="button" class="btn btn-primary ork-fill-btn" (click)="submit()">Save changes</button>

@@ -5,6 +5,9 @@ import {ToastrService} from "ngx-toastr";
 import {VacancyService} from "../../../service/vacancy.service";
 import {MatIcon} from "@angular/material/icon";
 import {MatMiniFabButton} from "@angular/material/button";
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Editor from "@ckeditor/ckeditor5-build-classic";
 
 @Component({
   selector: 'app-add-vacancy',
@@ -12,12 +15,14 @@ import {MatMiniFabButton} from "@angular/material/button";
   imports: [
     MatIcon,
     MatMiniFabButton,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CKEditorModule
   ],
   templateUrl: './add-vacancy.component.html',
   styleUrl: './add-vacancy.component.css'
 })
 export class AddVacancyComponent implements OnInit{
+  public Editor = ClassicEditor;
   form: FormGroup = new FormGroup<any>({});
   constructor(
     public activeModal: NgbActiveModal,
@@ -36,7 +41,8 @@ export class AddVacancyComponent implements OnInit{
   submit() {
     if(this.form.invalid)  this.toast.error("Please fill out all details.");
 
-    this.vacancyService.save(this.form.value.name).subscribe({
+    //make one api that gets data from enum from back to front, just send type from front.
+    this.vacancyService.save(this.form.value).subscribe({
       next: (res: any) => {
         this.activeModal.close();
       }
