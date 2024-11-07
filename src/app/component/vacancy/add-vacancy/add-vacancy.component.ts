@@ -7,7 +7,11 @@ import {MatIcon} from "@angular/material/icon";
 import {MatMiniFabButton} from "@angular/material/button";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import Editor from "@ckeditor/ckeditor5-build-classic";
+import {GeneralService} from "../../../service/general.service";
+import {NgForOf} from "@angular/common";
+import {EnumPipe} from "../../../pipe/enum.pipe";
+import {SectorService} from "../../../service/sector.service";
+import {EnumValuePipe} from "../../../pipe/enumValue.pipe";
 
 @Component({
   selector: 'app-add-vacancy',
@@ -16,7 +20,10 @@ import Editor from "@ckeditor/ckeditor5-build-classic";
     MatIcon,
     MatMiniFabButton,
     ReactiveFormsModule,
-    CKEditorModule
+    CKEditorModule,
+    NgForOf,
+    EnumPipe,
+    EnumValuePipe
   ],
   templateUrl: './add-vacancy.component.html',
   styleUrl: './add-vacancy.component.css'
@@ -24,14 +31,22 @@ import Editor from "@ckeditor/ckeditor5-build-classic";
 export class AddVacancyComponent implements OnInit{
   public Editor = ClassicEditor;
   form: FormGroup = new FormGroup<any>({});
+  vacancyList: Array<any> = new Array<any>();
+  sectorList: Array<any> = new Array<any>();
+  booleanList: Array<any> = new Array<any>();
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private toast: ToastrService,
-    private vacancyService: VacancyService) {}
+    private vacancyService: VacancyService,
+    private generalService: GeneralService,
+    private sectorService: SectorService) {}
 
   ngOnInit(): void {
     this.buildForm();
+    this.getSectors();
+    this.getVacancies();
+    this.getBooleans();
   }
 
   close(): void {
@@ -41,7 +56,9 @@ export class AddVacancyComponent implements OnInit{
   submit() {
     if(this.form.invalid)  this.toast.error("Please fill out all details.");
 
-    //make one api that gets data from enum from back to front, just send type from front.
+    const formData = this.form.value;
+    formData.sector = this.sectorList.find(f => f.id == formData.sector);
+
     this.vacancyService.save(this.form.value).subscribe({
       next: (res: any) => {
         this.activeModal.close();
@@ -51,6 +68,7 @@ export class AddVacancyComponent implements OnInit{
 
   private buildForm() {
     this.form = this.formBuilder.group({
+      sector: [undefined, Validators.required],
       title: [undefined, Validators.required],
       vacancyType: [undefined, Validators.required],
       positionNumber: [undefined, Validators.required],
@@ -63,6 +81,30 @@ export class AddVacancyComponent implements OnInit{
       applicationProcedure: [undefined, Validators.required],
       documentRequirement: [undefined, Validators.required],
       isPaidPosition: [undefined, Validators.required],
+    })
+  }
+
+  private getVacancies() {
+    this.generalService.getVacancies().subscribe({
+      next: (res: any) => {
+        this.vacancyList = res.body;
+      }
+    })
+  }
+
+  private getBooleans() {
+    this.generalService.getBooleans().subscribe({
+      next: (res: any) => {
+        this.booleanList = res.body;
+      }
+    })
+  }
+
+  private getSectors() {
+    this.sectorService.getAll(false).subscribe({
+      next: (res: any) => {
+        this.sectorList = res.body;
+      }
     })
   }
 }

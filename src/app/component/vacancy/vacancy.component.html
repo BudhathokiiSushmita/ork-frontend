@@ -16,10 +16,34 @@
           <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
         </ng-container>
 
-        <!-- Name Column -->
+        <ng-container matColumnDef="created">
+          <th mat-header-cell *matHeaderCellDef> Posted on</th>
+          <td mat-cell *matCellDef="let element"> {{ element.created | date }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="vacancyType">
+          <th mat-header-cell *matHeaderCellDef> Vacancy Type </th>
+          <td mat-cell *matCellDef="let element"> {{ element.vacancyType | titlecase | enumValue}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sector">
+          <th mat-header-cell *matHeaderCellDef> Sector </th>
+          <td mat-cell *matCellDef="let element"> {{ element.sector.name }} </td>
+        </ng-container>
+
         <ng-container matColumnDef="title">
           <th mat-header-cell *matHeaderCellDef> Title </th>
           <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="positionNumber">
+          <th mat-header-cell *matHeaderCellDef> No. of positions </th>
+          <td mat-cell *matCellDef="let element"> {{ element.positionNumber }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deadline">
+          <th mat-header-cell *matHeaderCellDef> Application Deadline </th>
+          <td mat-cell *matCellDef="let element"> {{ element.deadline | date}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

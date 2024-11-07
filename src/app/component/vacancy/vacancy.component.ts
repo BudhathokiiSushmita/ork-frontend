@@ -4,16 +4,18 @@ import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {AddVacancyComponent} from "./add-vacancy/add-vacancy.component";
+import {DatePipe, TitleCasePipe} from "@angular/common";
+import {EnumValuePipe} from "../../pipe/enumValue.pipe";
 
 @Component({
   selector: 'app-vacancy',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule],
+  imports: [MatTableModule, MatPaginatorModule, DatePipe, EnumValuePipe, TitleCasePipe],
   templateUrl: './vacancy.component.html',
   styleUrl: './vacancy.component.css'
 })
 export class VacancyComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'title'];
+  displayedColumns: string[] = ['id', 'sector', 'vacancyType', 'title', 'positionNumber', 'created', 'deadline'];
   dataList: Array<String> = new Array<String>();
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
