@@ -1,0 +1,128 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-9 float-left">
+      <h6 class="modal-title">Post Vacancy</h6>
+    </div>
+    <div class="col-3 d-flex justify-content-end">
+      <button mat-mini-fab aria-label="Close" class="float-right" (click)="activeModal.dismiss()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="submit()" [formGroup]="form">
+
+    <div class="row mb-4">
+      <div class="col-md-5">
+    <div class="form-outline">
+      <select name="sector" id="sector"
+              class="form-select" formControlName="sector">
+        <option *ngFor="let option of sectorList" [value]="option.id">
+          {{option.name}}
+        </option>
+      </select>
+      <label class="form-label" for="vacancyType">Choose sector</label>
+    </div>
+      </div>
+    </div>
+
+
+    <div class="form-outline mb-4">
+      <input type="text" id="title" class="form-control" formControlName="title" required/>
+      <label class="form-label" for="title">Vacancy title</label>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="form-outline">
+          <select name="vacancyType" id="vacancyType"
+                  class="form-select" formControlName="vacancyType">
+            <option *ngFor="let option of vacancyList" [value]="option | enum">
+              {{option}}
+            </option>
+          </select>
+          <label class="form-label" for="vacancyType">Vacancy Type</label>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-outline">
+          <select name="isPaidPosition" id="isPaidPosition"
+                  class="form-select" formControlName="isPaidPosition">
+            <option *ngFor="let option of booleanList" [value]="option">
+              {{option}}
+            </option>
+          </select>
+          <label class="form-label" for="isPaidPosition">Is Vacancy Paid?</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="form-outline">
+          <input type="number" id="positionNumber" class="form-control" formControlName="positionNumber" required/>
+          <label class="form-label" for="positionNumber">No. of position required</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-outline">
+          <input type="text" id="salaryRange" class="form-control" formControlName="salaryRange" required/>
+          <label class="form-label" for="salaryRange">Salary Range (From - To)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="form-outline">
+          <input type="date" id="startDate" class="form-control" formControlName="startDate" required/>
+          <label class="form-label" for="startDate">Job starts from</label>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-outline">
+          <input type="date" id="deadline" class="form-control" formControlName="deadline" required/>
+          <label class="form-label" for="deadline">Application Deadline</label>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-outline mb-4">
+      <ckeditor [editor]="Editor" formControlName="description" id="description"></ckeditor>
+      <label class="form-label" for="description">Description</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <ckeditor [editor]="Editor" formControlName="requirement" id="requirement"></ckeditor>
+      <label class="form-label" for="requirement">Requirement</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <ckeditor [editor]="Editor" formControlName="qualification" id="qualification"></ckeditor>
+      <label class="form-label" for="qualification">Qualification</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <ckeditor [editor]="Editor" formControlName="documentRequirement" id="documentRequirement"></ckeditor>
+      <label class="form-label" for="qualification">Document Required</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <ckeditor [editor]="Editor" formControlName="applicationProcedure" id="applicationProcedure"></ckeditor>
+      <label class="form-label" for="applicationProcedure">Application procedure</label>
+    </div>
+
+
+  </form>
+</div>
+
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-dark" (click)="activeModal.dismiss()">Close</button>
+  <button type="button" class="btn btn-primary ork-fill-btn" (click)="submit()">Save changes</button>
+</div>
