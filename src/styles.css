@@ -38,3 +38,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 100%;
 }
 
+.ork-text {
+  color: #4e578c !important;
+}
