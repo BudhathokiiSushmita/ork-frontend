@@ -17,6 +17,9 @@ export class DashboardComponent implements OnInit{
 
   adminSteps = ["Applicant (Create Recruiters)", "Sector"];
   recruiterSteps = ["Register Company", "Create vacancies based on sector", "Create HR & Director"];
+  applicantSteps = ["Signup", "Apply for job", "Without Signup", "Sees all sectors > vacancies", "Must be logged in to apply"];
+  hrSteps = ["Preview applications", "Set interview appointment", "Approve/Reject"];
+  directorSteps = ["Previews stages of applications"];
 
   ngOnInit(): void {
   }

@@ -18,3 +18,34 @@
     </mat-stepper>
   </div>
 </div>
+<div class="row ps-4">
+  <div class="col-md-6 shadow-lg">
+    <p class="d-flex justify-content-center shadow-lg navbar text-white">HR Work Flow</p>
+    <mat-stepper orientation="vertical">
+      <div *ngFor="let step of hrSteps">
+        <mat-step [label]="step">
+        </mat-step>
+      </div>
+    </mat-stepper>
+  </div>
+  <div class="col-md-6 shadow-lg">
+    <p class="d-flex justify-content-center shadow-lg navbar text-white">Director Work Flow</p>
+    <mat-stepper orientation="vertical">
+      <div *ngFor="let step of directorSteps">
+        <mat-step [label]="step">
+        </mat-step>
+      </div>
+    </mat-stepper>
+  </div>
+</div>
+<div class="row ps-4">
+  <div class="col-md-6 shadow-lg">
+    <p class="d-flex justify-content-center shadow-lg navbar text-white">Applicant Work Flow</p>
+    <mat-stepper orientation="vertical">
+      <div *ngFor="let step of applicantSteps">
+        <mat-step [label]="step">
+        </mat-step>
+      </div>
+    </mat-stepper>
+  </div>
+</div>
