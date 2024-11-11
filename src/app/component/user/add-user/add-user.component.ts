@@ -51,9 +51,8 @@ export class AddUserComponent implements OnInit {
     this.roleService.getAllRoles().subscribe({
       next: (res: any) => {
         this.roles = res.body || []; // Fallback to empty array if body is undefined
-        console.log("(this.roles.length", this.roles);
         if (this.roles.length > 0) {
-          this.form.patchValue({ role: this.roles[4] }); // Set default role to the first one
+          this.form.patchValue({ role: this.roles[1] }); // Set default role to the first one
         }
       },
       error: () => {
