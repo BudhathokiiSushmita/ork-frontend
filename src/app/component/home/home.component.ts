@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginComponent} from "../login/login.component";
 import {CommonModule} from "@angular/common";
+import {SectorService} from "../../service/sector.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -11,10 +12,27 @@ import {CommonModule} from "@angular/common";
 })
 export class HomeComponent implements OnInit{
 
-  sectors = ['Tech', 'Food', 'Automobiles', 'Animal', 'Security', 'Health', 'Cosmetic', 'Clothing', 'Medicine']
+  sectors : Array<any> = [];
 
+  constructor(
+    private sectorService: SectorService,
+    private router: Router
+  ) {
+  }
   ngOnInit(): void {
-    console.log('sectors', this.sectors)
+    this.fetchSectors();
   }
 
+  fetchSectors() {
+    this.sectorService.getAll(false).subscribe({
+      next : (res: any) => {
+        this.sectors = res.body;
+      }
+    })
+  }
+
+  openDetail(id: any) {
+    id = 1;
+    this.router.navigate([`/home/page/${id}`]);
+  }
 }

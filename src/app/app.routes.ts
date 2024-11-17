@@ -8,6 +8,7 @@ import {CompanyComponent} from "./component/company/company.component";
 import {SectorComponent} from "./component/sector/sector.component";
 import {UserComponent} from "./component/user/user.component";
 import {VacancyComponent} from "./component/vacancy/vacancy.component";
+import {HomeTableComponent} from "./component/home/home-table/home-table.component";
 
 export const routes: Routes = [
 
@@ -15,6 +16,10 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'home/page/:id',
+    component: HomeTableComponent
   },
   {
     path: 'login',
