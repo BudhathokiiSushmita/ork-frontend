@@ -46,34 +46,36 @@ export class LoginComponent implements OnInit{
           // Not saving in localstorage to avoid accidental login when page is refreshed.
           // This is one-time use as when you refresh this is erased.
           this.authService.setToken(res.body.accessToken);
+          this.authService.setUsername(res.body.username);
 
           // Checking whether Company exists for RECRUITER
-          this.checkCompanyBasedOnRole(res.body.accessToken);
+          this.checkCompanyBasedOnRole(res.body.accessToken, res.body.username);
         }
       })
     }
   }
 
-  checkCompanyBasedOnRole(token: any) {
+  checkCompanyBasedOnRole(token: any, username: any) {
     this.companyService.checkIfCompanyExistsByCurrentUser().subscribe({
       next: (res: any) => {
         if (res.body) {
           // this means user is not Recruiter
-          this.markAsLoggedIn(token);
+          this.markAsLoggedIn(token, username);
         } else {
           //needs to open modal to create company and only then reload the window
           const dialogRef = this.modalService.open(AddCompanyComponent,);
           dialogRef.result.then(
             (res: any) => {
-              this.markAsLoggedIn(token);
+              this.markAsLoggedIn(token, username);
             })
         }
       }
     })
   }
 
-  markAsLoggedIn(token: any) {
+  markAsLoggedIn(token: any, username: any) {
     localStorage.setItem("token", token);
+    localStorage.setItem("username", username);
     this.toast.success("Successfully logged in");
     setTimeout(() => {
       window.location.reload();

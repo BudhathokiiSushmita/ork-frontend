@@ -1,0 +1,140 @@
+<div class="row d-flex justify-content-center mt-2 p-3">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{ selectedVacancy.sector.name}}</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-center p-3 pt-0">
+  <div class="col-5">
+    <div *ngIf="dataSource.data.length > 0">
+      <mat-card appearance="outlined" class="bg-white p-3">
+        <div class="scrollable-container">
+          <div class="row" *ngFor="let element of pagedData; let i = index">
+            <div class="col-8">
+              <mat-card appearance="outlined" class="mt-4">
+                <mat-card-content> <i> {{ element.title }} </i></mat-card-content>
+                <mat-card-content> <b> Company : </b> {{ element.company.name}}</mat-card-content>
+                <mat-card-content> <b> Posted On : </b> {{ element.created | date}}</mat-card-content>
+                <mat-card-content> <b> Expires On : </b> {{ element.deadline | date}}</mat-card-content>
+                <mat-card-content> <b> No. of positions available : </b> {{ element.positionNumber}}</mat-card-content>
+              </mat-card>
+            </div>
+            <div class="col-4">
+              <mat-card appearance="outlined" class="p-3 mt-3">
+                <div class="example-button-row my-2">
+                  <button mat-stroked-button class="ork-text" (click)="seeDetail(element.id)">See more</button>
+                </div>
+                <div class="example-button-row my-2">
+                  <button mat-stroked-button class="ork-text"> <mat-icon>favorite</mat-icon> Wishlist</button>
+                </div>
+                <div class="example-button-row mb-2">
+                  <button mat-flat-button class="navbar">Apply Now</button>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <mat-paginator [length]="dataList.length"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[10, 20]"
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+
+  </div>
+
+
+
+  <div class="col-7">
+    <div class="mat-elevation-z8">
+    <mat-card appearance="outlined" class="bg-white p-4">
+      <h6>
+        <b>{{ selectedVacancy.title }} </b>
+      </h6>
+      <div class="mb-2">
+      <button type="button" class="btn btn-info text-white">{{  selectedVacancy.vacancyType | enumValue }}</button>
+      </div>
+
+<!--       Description-->
+      <mat-card appearance="outlined" class="bg-white p-3 mb-3">
+      <p [innerHTML]="selectedVacancy.description" class="p-2"></p>
+      </mat-card>
+
+<!--      Detail-->
+      <div class="row">
+        <div class="col-6">
+          <mat-card appearance="outlined" class="bg-white p-3">
+            <mat-card-content> <b> Company : </b> {{ selectedVacancy.company.name}}</mat-card-content>
+            <mat-card-content> <b> Posted On : </b> {{ selectedVacancy.created | date}}</mat-card-content>
+            <mat-card-content> <b> Expires On : </b> {{ selectedVacancy.deadline | date}}</mat-card-content>
+            <mat-card-content> <b> No. of positions available : </b> {{ selectedVacancy.positionNumber}}</mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-6">
+          <mat-card appearance="outlined" class="bg-white p-3">
+            <mat-card-content> <b>  Starts On : </b> {{ selectedVacancy.startDate | date}}</mat-card-content>
+            <mat-card-content> <b> Is position paid? : </b> {{ selectedVacancy.isPaidPosition | boolean}}</mat-card-content>
+            <mat-card-content> <b> Salary Range : </b> {{ selectedVacancy.isPaidPosition ? selectedVacancy.salaryRange : 'N/A'}}</mat-card-content>
+            <mat-card-content> <b> Sector : </b> {{ selectedVacancy.sector.name}}</mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
+<!--      Qualification-->
+      <div class="row mt-3">
+        <div class="col-12">
+          <mat-card appearance="outlined" class="bg-white p-3">
+            <h6>
+              <b> Qualification </b>
+            </h6>
+            <p [innerHTML]="selectedVacancy.qualification" class="p-2"></p>
+          </mat-card>
+        </div>
+      </div>
+
+      <!--      Requirement-->
+      <div class="row mt-3">
+        <div class="col-12">
+          <mat-card appearance="outlined" class="p-3">
+            <h6>
+              <b> Requirement </b>
+            </h6>
+            <p [innerHTML]="selectedVacancy.requirement" class="p-2"></p>
+          </mat-card>
+        </div>
+      </div>
+
+      <!--      Application procedure -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <mat-card appearance="outlined" class="bg-white p-3">
+            <h6>
+              <b> Application Procedure </b>
+            </h6>
+            <p [innerHTML]="selectedVacancy.applicationProcedure" class="p-2"></p>
+          </mat-card>
+        </div>
+      </div>
+
+
+      <!--      Required Documents -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <mat-card appearance="outlined" class="bg-white p-3">
+            <h6>
+              <b> Required Documents </b>
+            </h6>
+            <p [innerHTML]="selectedVacancy.documentRequirement" class="p-2"></p>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card>
+    </div>
+  </div>
+</div>

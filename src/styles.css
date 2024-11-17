@@ -41,3 +41,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .ork-text {
   color: #4e578c !important;
 }
+
+.cursor-pointer {
+  cursor: pointer !important;
+}

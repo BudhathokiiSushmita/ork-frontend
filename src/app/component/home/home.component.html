@@ -5,11 +5,10 @@
         <div class="card">
           <img class="card-img-top" src="https://www.india-briefing.com/news/wp-content/uploads/2023/06/Foreign-Investment-Opportunities-in-Indias-IT-Sector.jpg" alt="Card image cap">
           <div class="card-body cursor-pointer">
-            <p class="card-text">{{sector}}</p>
+            <p class="card-text" (click)="openDetail(sector.id)">{{sector.name}}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
