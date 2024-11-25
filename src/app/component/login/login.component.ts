@@ -49,33 +49,34 @@ export class LoginComponent implements OnInit{
           this.authService.setUsername(res.body.username);
 
           // Checking whether Company exists for RECRUITER
-          this.checkCompanyBasedOnRole(res.body.accessToken, res.body.username);
+          this.checkCompanyBasedOnRole(res.body.accessToken, res.body.username, res.body.roleType);
         }
       })
     }
   }
 
-  checkCompanyBasedOnRole(token: any, username: any) {
+  checkCompanyBasedOnRole(token: any, username: any, roleType: any) {
     this.companyService.checkIfCompanyExistsByCurrentUser().subscribe({
       next: (res: any) => {
         if (res.body) {
           // this means user is not Recruiter
-          this.markAsLoggedIn(token, username);
+          this.markAsLoggedIn(token, username, roleType);
         } else {
           //needs to open modal to create company and only then reload the window
           const dialogRef = this.modalService.open(AddCompanyComponent,);
           dialogRef.result.then(
             (res: any) => {
-              this.markAsLoggedIn(token, username);
+              this.markAsLoggedIn(token, username, roleType);
             })
         }
       }
     })
   }
 
-  markAsLoggedIn(token: any, username: any) {
+  markAsLoggedIn(token: any, username: any, roleType: any) {
     localStorage.setItem("token", token);
     localStorage.setItem("username", username);
+    localStorage.setItem("roleType", roleType);
     this.toast.success("Successfully logged in");
     setTimeout(() => {
       window.location.reload();

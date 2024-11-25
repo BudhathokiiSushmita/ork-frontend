@@ -1,0 +1,31 @@
+<form (ngSubmit)="submitForm()" [formGroup]="form">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+      <div class="form-outline mb-4">
+        <label class="form-label" for="professionChoice">Why did you choose this particular profession?</label>
+        <ckeditor [editor]="Editor" formControlName="professionChoice"
+                  id="professionChoice" ></ckeditor>
+      </div>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+      <div class="form-outline mb-4">
+        <label class="form-label" for="companyChoice">Why did you choose us?</label>
+        <ckeditor [editor]="Editor" formControlName="companyChoice"
+                  id="companyChoice"></ckeditor>
+      </div>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+      <div class="form-outline mb-4">
+        <label class="form-label" for="uniqueQualities">Can you share us atleast one thing that differentiate you from others?</label>
+        <ckeditor [editor]="Editor" formControlName="uniqueQualities"
+                  id="uniqueQualities"></ckeditor>
+      </div>
+    </div>
+  </div>
+</form>

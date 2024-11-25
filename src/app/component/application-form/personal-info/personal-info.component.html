@@ -1,0 +1,169 @@
+<form (ngSubmit)="submitForm()" [formGroup]="form">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-outline mb-4">
+        <input type="text" id="firstName" class="form-control" formControlName="firstName"/>
+        <label class="form-label" for="firstName">First Name</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-outline mb-4">
+        <input type="text" id="lastName" class="form-control" formControlName="lastName"/>
+        <label class="form-label" for="lastName">Last Name</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-outline mb-4">
+        <input type="text" id="address" class="form-control" formControlName="address"/>
+        <label class="form-label" for="address">Address</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-outline mb-4">
+        <input type="text" id="country" class="form-control" formControlName="country"/>
+        <label class="form-label" for="country">Country</label>
+      </div>
+    </div>
+  </div>
+
+  <!--    Work Experience starts -->
+  <div class="card ork-border">
+    <div class="card-body">
+      <p><b>Work Experience (if any) </b></p>
+      <ng-container formArrayName="workExperience" *ngIf="workExperience.length">
+        <ng-container *ngFor="let workForm of workExperience.controls; let i = index">
+          <div [formGroupName]="i" class="row mb-4">
+            <div class="row">
+              <div class="col-md-1">
+                <p class="float-end">{{ i + 1 }}</p>
+              </div>
+              <div class="col-md-5">
+                <div class="form-outline mb-6">
+                  <input type="text" id="companyName" class="form-control" formControlName="companyName"/>
+                  <label class="form-label" for="companyName">Company Name</label>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-outline mb-4">
+                  <input type="text" id="designation" class="form-control" formControlName="designation"/>
+                  <label class="form-label" for="designation">Designation</label>
+                </div>
+              </div>
+              <div class="col-md-1" *ngIf="i == workExperience.length-1">
+                <button class="btn btn-outline-dark ork-add-btn" (click)="addMoreWorkExp()">
+                    <span class="material-icons">
+                      add
+                    </span>
+                </button>
+              </div>
+              <div class="col-md-1" *ngIf="i < workExperience.length-1">
+                <button class="btn btn-outline-dark ork-add-btn" (click)="removeWorkExp(i)">
+                    <span class="material-icons">
+                      delete
+                    </span>
+                </button>
+              </div>
+            </div>
+
+            <div class="row d-flex justify-content-center mb-3">
+              <div class="col-md-5">
+                <div class="form-outline">
+                  <input type="date" id="startDate" class="form-control" formControlName="startDate" required/>
+                  <label class="form-label" for="startDate">Started from</label>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-outline">
+                  <input type="date" id="endDate" class="form-control" formControlName="endDate" required/>
+                  <label class="form-label" for="endDate">End Date</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-10">
+                <div class="form-outline mb-4">
+                  <ckeditor [editor]="Editor" formControlName="responsibilities"
+                            id="responsibilities"></ckeditor>
+                  <label class="form-label" for="responsibilities">Key Responsibilities</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+
+  <!--    Work Experience ends -->
+
+  <!--    Education Qualification starts -->
+  <div class="card ork-border mt-4">
+    <div class="card-body">
+      <p><b>Highest Education Level</b></p>
+      <ng-container formArrayName="educationQualification" *ngIf="educationQualification.length">
+        <ng-container *ngFor="let educationForm of educationQualification.controls; let i = index">
+          <div [formGroupName]="i" class="row mb-4">
+            <div class="row">
+              <div class="col-md-1">
+                <p class="float-end">{{ i + 1 }}</p>
+              </div>
+              <div class="col-md-10">
+                <div class="form-outline mb-6">
+                  <input type="text" id="institution" class="form-control" formControlName="institution"/>
+                  <label class="form-label" for="institution">Institution Name</label>
+                </div>
+              </div>
+              <div class="col-md-1" *ngIf="i == educationQualification.length-1">
+                <button class="btn btn-outline-dark ork-add-btn" (click)="addMoreEducationQual()">
+                    <span class="material-icons">
+                      add
+                    </span>
+                </button>
+              </div>
+              <div class="col-md-1" *ngIf="i < educationQualification.length-1">
+                <button class="btn btn-outline-dark ork-add-btn" (click)="removeEducationQual(i)">
+                    <span class="material-icons">
+                      delete
+                    </span>
+                </button>
+              </div>
+            </div>
+
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-8">
+                <input type="text" id="courseName" class="form-control" formControlName="courseName"/>
+                <label class="form-label" for="courseName">Course Name</label>
+              </div>
+              <div class="col-md-2">
+                <input type="text" id="gradeOrPercentage" class="form-control"
+                       formControlName="gradeOrPercentage"/>
+                <label class="form-label" for="gradeOrPercentage">Grade/Percentage</label>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-5">
+                <div class="form-outline">
+                  <input type="date" id="eduStartDate" class="form-control" formControlName="startDate" required/>
+                  <label class="form-label" for="eduStartDate">Started from</label>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-outline">
+                  <input type="date" id="eduEndDate" class="form-control" formControlName="endDate" required/>
+                  <label class="form-label" for="eduStartDate">End Date</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+
+  <!--    Education Qualification ends -->
+</form>

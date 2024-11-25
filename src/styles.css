@@ -16,6 +16,10 @@ body {
   color: hsl(217, 10%, 50.8%)
 }
 
+.ork-grey-bg {
+  background: rgb(250 249 253);
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -44,4 +48,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .cursor-pointer {
   cursor: pointer !important;
+}
+
+.ork-border {
+  border-color: #4e578c !important;
+}
+
+.ck.ck-editor__main>.ck-editor__editable{
+  min-height: 200px !important;
 }

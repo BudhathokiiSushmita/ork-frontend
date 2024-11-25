@@ -30,7 +30,7 @@ export class SectorService {
     return this.http.get(`${this.url}/list`).pipe(
       tap((res: any) => {
         if(showToast) {
-        this.toastr.success(res.message);
+        // this.toastr.success(res.message);
         }
       }),
       catchError((err) => {
