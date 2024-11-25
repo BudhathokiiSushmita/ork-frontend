@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit{
   }
 
   openDetail(id: any) {
-    id = 1;
     this.router.navigate([`/home/page/${id}`]);
   }
 }

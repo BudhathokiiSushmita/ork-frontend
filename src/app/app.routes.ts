@@ -9,6 +9,7 @@ import {SectorComponent} from "./component/sector/sector.component";
 import {UserComponent} from "./component/user/user.component";
 import {VacancyComponent} from "./component/vacancy/vacancy.component";
 import {HomeTableComponent} from "./component/home/home-table/home-table.component";
+import {ApplicationFormComponent} from "./component/application-form/application-form.component";
 
 export const routes: Routes = [
 
@@ -17,10 +18,23 @@ export const routes: Routes = [
     path: '',
     component: HomeComponent
   },
+
+  // applicant
+  {
+    path: 'my-dashboard',
+    component: HomeComponent
+  },
   {
     path: 'home/page/:id',
     component: HomeTableComponent
   },
+  {
+    path: 'application-form/:id',
+    component: ApplicationFormComponent
+  },
+
+  // applicant
+
   {
     path: 'login',
     component: LoginComponent

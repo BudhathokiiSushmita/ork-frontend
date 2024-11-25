@@ -1,0 +1,45 @@
+<div class="row d-flex justify-content-center ork-grey-bg mt-3 ">
+  <div class="col-11">
+    <mat-stepper orientation="horizontal">
+      <ng-container *ngFor="let step of applicationSteps; let i = index">
+        <mat-step [label]="step">
+          <div class="card">
+            <div class="card-body">
+
+              <!--              template-->
+              <ng-container *ngTemplateOutlet="activeTemplate"></ng-container>
+
+              <!--              buttons-->
+                  <button type="submit" class="btn btn-outline-primary btn-block ork-fill-btn mb-4 mt-2 float-start" *ngIf="templateIndex > 0"
+                          (click)="chooseTemplate(false)">
+                    Previous
+                  </button>
+
+                  <button type="submit" class="btn btn-outline-primary btn-block ork-fill-btn mb-4 mt-2 float-end" *ngIf="templateIndex < applicationSteps.length-1"
+                          (click)="chooseTemplate(true)">
+                    Next
+                  </button>
+
+                  <button type="submit" class="btn btn-outline-primary btn-block ork-fill-btn mb-4 mt-2 float-end" *ngIf="templateIndex == applicationSteps.length-1"
+                          (click)="submitApplication()">
+                    Submit
+                  </button>
+            </div>
+          </div>
+        </mat-step>
+      </ng-container>
+    </mat-stepper>
+  </div>
+</div>
+
+<ng-template #template0>
+  <app-personal-info></app-personal-info>
+</ng-template>
+
+<ng-template #template1>
+  <app-questionnaire></app-questionnaire>
+</ng-template>
+
+<ng-template #template2>
+  <app-application-document></app-application-document>
+</ng-template>

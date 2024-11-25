@@ -30,7 +30,7 @@ export class VacancyService {
   getAllVacancies(showToast: boolean): Observable<any> {
     return this.http.get(`${this.url}/get-all-vacancies`).pipe(
       tap((res: any) => {
-        this.toastr.success(res.message);
+        // this.toastr.success(res.message);
       }),
       catchError((err) => {
         this.toastr.error(err.error.message);
@@ -42,7 +42,7 @@ export class VacancyService {
   getById(id: any): Observable<any> {
     return this.http.get(`${this.url}/${id}`).pipe(
       tap((res: any) => {
-        this.toastr.success(res.message);
+        // this.toastr.success(res.message);
       }),
       catchError((err) => {
         this.toastr.error(err.error.message);

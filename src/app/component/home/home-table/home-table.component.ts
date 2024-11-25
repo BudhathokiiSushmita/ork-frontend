@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {VacancyService} from "../../../service/vacancy.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatTableDataSource, MatTableModule
 } from "@angular/material/table";
 import {MatPaginator, MatPaginatorModule, PageEvent} from "@angular/material/paginator";
@@ -10,6 +10,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {EnumValuePipe} from "../../../pipe/enumValue.pipe";
 import {BooleanPipe} from "../../../pipe/boolean.pipe";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-home-table',
@@ -44,7 +45,9 @@ export class HomeTableComponent implements OnInit{
 
   constructor(
     private vacancyService: VacancyService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private toastr: ToastrService
   ) {
   }
 
@@ -68,5 +71,15 @@ export class HomeTableComponent implements OnInit{
 
   seeDetail(id: any) {
     this.selectedVacancy = this.dataList.find(f => f.id == id);
+  }
+
+  onApply(vacancyId: any) {
+    const token = localStorage.getItem("token");
+    if(token) {
+      this.router.navigate(["/application-form", vacancyId]);
+    } else {
+      this.toastr.error("Oops! Please log in to proceed.");
+      this.router.navigate(["/login"]);
+    }
   }
 }
