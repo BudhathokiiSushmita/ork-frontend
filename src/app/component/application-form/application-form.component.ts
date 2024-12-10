@@ -5,6 +5,7 @@ import {CommonModule} from "@angular/common";
 import {PersonalInfoComponent} from "./personal-info/personal-info.component";
 import {QuestionnaireComponent} from "./questionnaire/questionnaire.component";
 import {ApplicationDocumentComponent} from "./application-document/application-document.component";
+import {ApplicationRequestModel} from "../../model/application-request.model";
 
 @Component({
   selector: 'app-application-form',
@@ -44,6 +45,9 @@ export class ApplicationFormComponent implements OnInit {
   }
 
   submitApplication() {
+
+    const applicationRequest = new ApplicationRequestModel();
+
 
   }
 }
