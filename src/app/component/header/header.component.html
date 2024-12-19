@@ -14,10 +14,20 @@
     <ng-template #loggedInNav>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <span class="nav-link text-white d-flex align-items-center">
-            <span class="material-icons me-2">account_circle</span>
-            {{ username }}
-          </span>
+        <span class="nav-link text-white d-flex align-items-center">
+          <span class="material-icons me-2">account_circle</span>
+          {{ username }}
+          <ul class="submenu">
+            <li>
+              <a class="dropdown-item" href="#">Profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">My Applications</a>
+            </li>
+          </ul>
+        </span>
+
+
         </li>
 
         <li class="nav-item">

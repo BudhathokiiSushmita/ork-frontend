@@ -8,6 +8,8 @@ import {ApplicationDocumentComponent} from "./application-document/application-d
 import {ApplicationRequestModel} from "../../model/application-request.model";
 import {ActivatedRoute} from "@angular/router";
 import {ApplicationService} from "../../service/application.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {PostApplicationModalComponent} from "./post-application-modal/post-application-modal.component";
 
 @Component({
   selector: 'app-application-form',
@@ -41,7 +43,8 @@ export class ApplicationFormComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    private ngbModal: NgbModal
   ) {
   }
 
@@ -83,6 +86,12 @@ export class ApplicationFormComponent implements OnInit {
     this.applicationService.save(applicationRequest).subscribe({
       next : (res: any) => {
         console.log("saved", res)
+        //ask if user wants to continue applying job or see applications
+        const dialogRef = this.ngbModal.open(PostApplicationModalComponent);
+        dialogRef.componentInstance.sectorId = 1;
+        dialogRef.result.then((res: any) => {
+
+        })
       },
       error : (err: any) => {
         console.log("error", err)
