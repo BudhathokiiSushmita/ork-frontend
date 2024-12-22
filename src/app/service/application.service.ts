@@ -42,4 +42,21 @@ export class ApplicationService {
       })
     );
   }
+
+  action(applicationId: any, action: any): Observable<any> {
+    // return this.http.post(`${this.url}?applicationId=${applicationId}&action=${action}`).pipe(
+    const data = {
+      applicationId: applicationId,
+      action: action
+    }
+    return this.http.post(`${this.url}/action`, data).pipe(
+      tap((res: any) => {
+        this.toastr.success(res.message);
+      }),
+      catchError((err) => {
+        this.toastr.error(err.error.message);
+        return throwError(err);
+      })
+    );
+  }
 }

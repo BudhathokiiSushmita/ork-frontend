@@ -12,5 +12,8 @@ export const APIConstant = {
 }
 
 export const ROLEConstant = {
-  APPLICANT : 'APPLICANT'
+  APPLICANT : 'APPLICANT',
+  DIRECTOR: 'DIRECTOR',
+  HR: 'HR',
+  RECRUITER: 'RECRUITER'
 }
