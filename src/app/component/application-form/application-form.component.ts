@@ -6,6 +6,10 @@ import {PersonalInfoComponent} from "./personal-info/personal-info.component";
 import {QuestionnaireComponent} from "./questionnaire/questionnaire.component";
 import {ApplicationDocumentComponent} from "./application-document/application-document.component";
 import {ApplicationRequestModel} from "../../model/application-request.model";
+import {ActivatedRoute} from "@angular/router";
+import {ApplicationService} from "../../service/application.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {PostApplicationModalComponent} from "./post-application-modal/post-application-modal.component";
 
 @Component({
   selector: 'app-application-form',
@@ -25,9 +29,24 @@ export class ApplicationFormComponent implements OnInit {
   @ViewChild('template1', {static: true}) template1!: TemplateRef<any>;
   @ViewChild('template2', {static: true}) template2!: TemplateRef<any>;
 
+  @ViewChild('personalInfo') personalInfo!: PersonalInfoComponent;
+  @ViewChild('questionnaire') questionnaire!: QuestionnaireComponent;
+  @ViewChild('doc') doc!: ApplicationDocumentComponent;
+
   activeTemplate: TemplateRef<any> = this.template0;
   templateList: TemplateRef<any>[] = [];
   templateIndex: number = 0;
+
+  personalInfoData: any | undefined;
+  questionnaireData: any | undefined;
+  docData: any | undefined;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private applicationService: ApplicationService,
+    private ngbModal: NgbModal
+  ) {
+  }
 
   ngOnInit(): void {
     this.templateList = [
@@ -45,9 +64,50 @@ export class ApplicationFormComponent implements OnInit {
   }
 
   submitApplication() {
-
     const applicationRequest = new ApplicationRequestModel();
 
+    //personal info
+    applicationRequest.firstName = this.personalInfoData.value.firstName;
+    applicationRequest.lastName = this.personalInfoData.value.lastName;
+    applicationRequest.address = this.personalInfoData.value.address;
+    applicationRequest.country = this.personalInfoData.value.country;
+    applicationRequest.workExperienceList = this.personalInfoData.value.workExperience;
+    applicationRequest.educationQualificationList = this.personalInfoData.value.educationQualification;
 
+    //questionnaire
+    applicationRequest.professionChoice = this.questionnaireData.value.professionChoice;
+    applicationRequest.companyChoice = this.questionnaireData.value.companyChoice;
+    applicationRequest.uniqueQualities = this.questionnaireData.value.uniqueQualities;
+
+    //submit
+    const vacancyId = this.activatedRoute.snapshot.params['id'];
+    applicationRequest.vacancyId = vacancyId;
+
+    this.applicationService.save(applicationRequest).subscribe({
+      next : (res: any) => {
+        console.log("saved", res)
+        //ask if user wants to continue applying job or see applications
+        const dialogRef = this.ngbModal.open(PostApplicationModalComponent);
+        dialogRef.componentInstance.sectorId = 1;
+        dialogRef.result.then((res: any) => {
+
+        })
+      },
+      error : (err: any) => {
+        console.log("error", err)
+      }
+    })
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.personalInfo) {
+      this.personalInfoData = this.personalInfo.form;
+    }
+    if (this.questionnaire) {
+      this.questionnaireData = this.questionnaire.form;
+    }
+    // if (this.doc) {
+    //   this.docData = this.doc.form;
+    // }
   }
 }

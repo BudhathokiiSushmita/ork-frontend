@@ -13,11 +13,18 @@
     </ul>
     <ng-template #loggedInNav>
       <ul class="navbar-nav ms-auto">
+<!--        customer-->
         <li class="nav-item">
-          <span class="nav-link text-white d-flex align-items-center">
-            <span class="material-icons me-2">account_circle</span>
-            {{ username }}
-          </span>
+            <span class="nav-link text-white d-flex align-items-center cursor-pointer" (click)="showApplications()">
+              Applications
+            </span>
+        </li>
+<!--        customer-->
+        <li class="nav-item">
+        <span class="nav-link text-white d-flex align-items-center">
+          <span class="material-icons me-2">account_circle</span>
+          {{ username }}
+        </span>
         </li>
 
         <li class="nav-item">

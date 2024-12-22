@@ -87,8 +87,4 @@ export class PersonalInfoComponent implements OnInit {
     this.educationQualification.removeAt(index);
   }
 
-  submitForm() {
-
-  }
-
 }
