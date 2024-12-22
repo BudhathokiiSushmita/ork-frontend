@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center">
+              <span class="material-icons" style="color: #4e578c;font-size: 5rem;">
+      help
+    </span>
+
+      </div>
+
+      <div class="col-12 d-flex justify-content-center">
+        <p>Are you sure you want to  {{action}}  ? </p>
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary btn-block ork-add-btn mb-4 mt-2 mx-2 float-end"
+            (click)="confirmation(true)">
+      Yes
+    </button>
+
+    <button type="submit" class="btn btn-outline-primary btn-block ork-fill-btn mb-4 mt-2 float-end"
+            (click)="confirmation(false)">
+      No
+    </button>
+
+
+  </div>
+</div>

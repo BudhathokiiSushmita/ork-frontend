@@ -6,12 +6,14 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ApplicationService} from "../../service/application.service";
 import {CommonModule, DatePipe} from "@angular/common";
 import {ROLEConstant} from "../../constant/APIConstant";
+import {MatMenuModule} from "@angular/material/menu";
+import {ConfirmationModalComponent} from "../confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: 'app-application-list',
   standalone: true,
   imports: [
-    MatTableModule, MatPaginatorModule, DatePipe, CommonModule
+    MatTableModule, MatPaginatorModule, DatePipe, CommonModule, MatMenuModule
   ],
   templateUrl: './application-list.component.html',
   styleUrl: './application-list.component.css'
@@ -27,8 +29,8 @@ export class ApplicationListComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
-    private modalService: NgbModal,
-    private applicationService: ApplicationService) {
+    private applicationService: ApplicationService,
+    private ngbModal: NgbModal) {
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -40,6 +42,10 @@ export class ApplicationListComponent implements OnInit{
     if(this.roleType != ROLEConstant.APPLICANT) {
       this.displayedColumns.push('applicant');
     }
+
+    //to add it to last index
+    this.displayedColumns.push('action');
+
   }
 
   fetchAllApplications() {
@@ -51,4 +57,47 @@ export class ApplicationListComponent implements OnInit{
     });
   }
 
+  performAction(item: any, action: string) {
+    const ngbModal = this.ngbModal.open(ConfirmationModalComponent);
+    ngbModal.componentInstance.action = action;
+    ngbModal.result.then(
+      (res: any) => {
+        if (res) {
+          switch (action) {
+            case 'Edit' : {
+              break;
+            }
+
+            case 'Delete' : {
+              break;
+            }
+
+            case 'Forward' : {
+              this.applicationService.action(item.id,'FORWARD').subscribe({
+                next: (res: any) => {
+                }
+              })
+              break;
+            }
+
+            case 'Backward' : {
+              this.applicationService.action(item.id,'BACKWARD').subscribe({
+                next: (res: any) => {
+                }
+              })
+              break;
+            }
+
+            case 'Approve' : {
+              this.applicationService.action(item.id,'APPROVE').subscribe({
+                next: (res: any) => {
+                }
+              })
+              break;
+            }
+          }
+          return;
+        }
+      })
+  }
 }
