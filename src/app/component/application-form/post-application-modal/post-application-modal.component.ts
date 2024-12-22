@@ -30,7 +30,7 @@ export class PostApplicationModalComponent implements OnInit{
   }
 
   viewApplications() {
-    this.router.navigate(["/home/my-applications"]);
+    this.router.navigate(["/my-dashboard/my-applications"]);
     this.ngbActiveModal.close();
   }
 }

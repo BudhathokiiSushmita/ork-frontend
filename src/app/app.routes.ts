@@ -10,6 +10,7 @@ import {UserComponent} from "./component/user/user.component";
 import {VacancyComponent} from "./component/vacancy/vacancy.component";
 import {HomeTableComponent} from "./component/home/home-table/home-table.component";
 import {ApplicationFormComponent} from "./component/application-form/application-form.component";
+import {ApplicationListComponent} from "./component/application-list/application-list.component";
 
 export const routes: Routes = [
 
@@ -22,7 +23,15 @@ export const routes: Routes = [
   // applicant
   {
     path: 'my-dashboard',
-    component: HomeComponent
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+      },
+      {
+        path: 'my-applications',
+        component: ApplicationListComponent,
+      }]
   },
   {
     path: 'home/page/:id',

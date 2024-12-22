@@ -41,4 +41,8 @@ export class HeaderComponent implements OnInit{
     localStorage.removeItem("token");
   }
 
+  showApplications() {
+    this.router.navigate(["/my-dashboard/my-applications"]);
+  }
+
 }

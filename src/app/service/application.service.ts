@@ -28,4 +28,18 @@ export class ApplicationService {
       })
     );
   }
+
+  getAll(showToast: Boolean): Observable<any> {
+    return this.http.get(`${this.url}/list`).pipe(
+      tap((res: any) => {
+        if(showToast) {
+          // this.toastr.success(res.message);
+        }
+      }),
+      catchError((err) => {
+        this.toastr.error(err.error.message);
+        return throwError(err);
+      })
+    );
+  }
 }
