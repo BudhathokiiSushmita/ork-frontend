@@ -82,6 +82,10 @@ export const routes: Routes = [
       {
         path: 'vacancy',
         component: VacancyComponent
-      },]
+      },
+      {
+        path: 'application',
+        component: ApplicationListComponent
+      }]
   },
 ];
