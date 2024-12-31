@@ -17,6 +17,10 @@
       <input type="text" id="name" class="form-control" formControlName="name" required/>
       <label class="form-label" for="name">Name</label>
     </div>
+    <div class="form-outline mb-4">
+      <input type="file" id="file" class="form-control" formControlName="orkFile" required (change)="handleEventChange($event)"/>
+      <label class="form-label" for="file">Image</label>
+    </div>
   </form>
 </div>
 <div class="modal-footer">

@@ -19,6 +19,7 @@ import {SectorService} from "../../../service/sector.service";
 })
 export class AddSectorComponent implements OnInit{
   form: FormGroup = new FormGroup<any>({});
+  currentFile: any | undefined;
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
@@ -36,7 +37,11 @@ export class AddSectorComponent implements OnInit{
   submit() {
     if(this.form.invalid)  this.toast.error("Please fill out all details.");
 
-    this.sectorService.save(this.form.value.name).subscribe({
+    const formData = new FormData();
+    formData.append('orkFile', this.currentFile, this.currentFile.name);
+    formData.append('name', this.form.value.name);
+
+    this.sectorService.save(formData).subscribe({
       next: (res: any) => {
         this.activeModal.close();
       }
@@ -45,7 +50,14 @@ export class AddSectorComponent implements OnInit{
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      name: [undefined, Validators.required]
+      name: [undefined, Validators.required],
+      orkFile: [undefined, Validators.required]
     })
+  }
+
+  handleEventChange(event: any) {
+    if (event.target.files.length > 0) {
+      this.currentFile = event.target.files[0];
+    }
   }
 }
