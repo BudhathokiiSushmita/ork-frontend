@@ -1,9 +1,9 @@
 <div class="row p-4 d-flex justify-content-center">
   <div class="col-11">
     <div class="row">
-      <div class="col-4 py-2" *ngFor="let sector of sectors">
-        <div class="card">
-          <img class="card-img-top" src="https://www.india-briefing.com/news/wp-content/uploads/2023/06/Foreign-Investment-Opportunities-in-Indias-IT-Sector.jpg" alt="Card image cap">
+      <div class="col-sm-12 col-md-4 py-2" *ngFor="let sector of sectors">
+        <div class="card ork-card">
+          <img class="card-img-top ork-img img-fluid" [src]=showImage(sector.file) alt="Card image cap">
           <div class="card-body cursor-pointer">
             <p class="card-text" (click)="openDetail(sector.id)">{{sector.name}}</p>
           </div>

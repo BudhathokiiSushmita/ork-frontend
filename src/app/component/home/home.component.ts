@@ -34,4 +34,8 @@ export class HomeComponent implements OnInit{
   openDetail(id: any) {
     this.router.navigate([`/home/page/${id}`]);
   }
+
+  showImage(imageBytes: string): string {
+    return `data:image/jpeg;base64,${imageBytes}`;
+  }
 }
