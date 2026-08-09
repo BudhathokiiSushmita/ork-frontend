@@ -56,7 +56,7 @@ export class AddVacancyComponent implements OnInit{
   submit() {
     if(this.form.invalid)  this.toast.error("Please fill out all details.");
 
-    const formData = this.form.value;
+    const formData = this.form.getRawValue();
     formData.sector = this.sectorList.find(f => f.id == formData.sector);
 
     this.vacancyService.save(this.form.value).subscribe({
@@ -81,6 +81,18 @@ export class AddVacancyComponent implements OnInit{
       applicationProcedure: [undefined, Validators.required],
       documentRequirement: [undefined, Validators.required],
       isPaidPosition: [undefined, Validators.required],
+    })
+
+
+    // cant do [disabled] in html, because this is reactive form and [disabled] is template form syntax
+    this.form.get('isPaidPosition')?.valueChanges.subscribe((value) => {
+      const salaryRangeControl = this.form.get('salaryRange');
+      if (value == this.booleanList[0]) {
+        salaryRangeControl?.enable();
+      } else {
+        salaryRangeControl?.disable();
+        salaryRangeControl?.setValue('', { emitEvent : false } );
+      }
     })
   }
 
