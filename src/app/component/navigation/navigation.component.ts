@@ -24,6 +24,7 @@ export class NavigationComponent implements OnInit{
 
   items: Array<any> = new Array<any>();
   showFiller = false;
+  activeIndex: number | null = null;
   constructor(
     private roleService: RoleService,
     private router: Router
@@ -38,6 +39,7 @@ export class NavigationComponent implements OnInit{
     this.roleService.getAllNavPermissionByRole().subscribe({
       next : (res: any) => {
         this.items = res.body;
+        this.activeIndex = this.items[0];
       }
     })
   }
