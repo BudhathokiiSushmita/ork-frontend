@@ -5,6 +5,7 @@
     </div>
     <div class="col-3 d-flex justify-content-end">
       <button mat-mini-fab aria-label="Close" class="float-right" (click)="activeModal.dismiss()">
+        <mat-icon>close</mat-icon>
       </button>
     </div>
   </div>
@@ -31,12 +32,11 @@
       <select name="role" id="role"
               class="form-select" formControlName="role">
         <option *ngFor="let option of roles" [value]="option">
-          {{option}}
+          {{ option }}
         </option>
       </select>
       <label class="form-label" for="role">Role</label>
     </div>
-
 
 
   </form>
