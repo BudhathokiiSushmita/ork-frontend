@@ -20,8 +20,10 @@ export class TokenExpireModalComponent implements OnInit{
   }
 
   redirect() {
-    this.router.navigate(["/login"]);
     this.ngbActiveModal.close();
+
+    //need to restart all component
+    window.location.href = "/login";
   }
 
 }
