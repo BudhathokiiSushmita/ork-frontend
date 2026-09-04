@@ -32,11 +32,22 @@
                 <div class="example-button-row my-2">
                   <button mat-stroked-button class="ork-text" (click)="seeDetail(element.id)">See more</button>
                 </div>
+
+
                 <div class="example-button-row my-2">
-                  <button mat-stroked-button class="ork-text"> <mat-icon>favorite</mat-icon> Wishlist</button>
+                  <button mat-stroked-button class="ork-text" [disabled]="element.isApplied">
+                    <mat-icon>favorite</mat-icon>Wishlist
+                  </button>
                 </div>
+
                 <div class="example-button-row mb-2">
-                  <button mat-flat-button class="navbar" (click)="onApply(element.id)">Apply Now</button>
+                  <button
+                    *ngIf="!element.isApplied; else alreadyApplied"
+                    mat-flat-button class="navbar" (click)="onApply(element.id)">Apply Now</button>
+                  <ng-template #alreadyApplied>
+                    <button mat-flat-button disabled>Already Applied</button>
+                  </ng-template>
+
                 </div>
               </mat-card>
             </div>
