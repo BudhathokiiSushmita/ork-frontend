@@ -12,7 +12,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const tokenService = inject(TokenService);
 
   const localToken = localStorage.getItem("token") || token;
-  console.log("l", localToken)
+  // console.log("l", localToken)
 
   if(localToken != null) {
     const authReq = req.clone({

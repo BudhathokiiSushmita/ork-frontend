@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {RoleService} from "../../service/role.service";
 import {CommonModule} from "@angular/common";
 import {NgxSelectModule} from "ngx-select-ex";
-import {RoleModel} from "../../model/role.model";
 import {ROLEConstant} from "../../constant/APIConstant";
 import {ToastrService} from "ngx-toastr";
 import {UserService} from "../../service/user.service";
