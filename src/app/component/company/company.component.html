@@ -1,6 +1,6 @@
 <div class="row d-flex justify-content-center">
-  <div class="col-11">
-    <div class="mat-elevation-z8">
+    <div class="col-11">
+      <div class="mat-elevation-z8" *ngIf="!isViewNeeded; else companyView">
       <table mat-table [dataSource]="dataSource">
 
         <!-- SN Column -->
@@ -41,3 +41,93 @@
     </div>
   </div>
 </div>
+
+<ng-template #companyView>
+  <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-12">
+        <button type="submit" class="btn btn-outline-light ork-add-btn btn-block mb-4 float-end" (click)="openForm()">
+          + Edit company
+        </button>
+      </div>
+    </div>
+    <div class="col-11 col-lg-10">
+
+      <mat-card class="company-profile">
+
+        <!-- Header -->
+        <div class="company-header">
+
+<!--          <div class="company-logo">-->
+<!--            <img-->
+<!--              *ngIf="company.logo"-->
+<!--              [src]="company.logo"-->
+<!--              [alt]="company.name"-->
+<!--            />-->
+
+<!--            <mat-icon *ngIf="!company.logo">-->
+<!--              business-->
+<!--            </mat-icon>-->
+<!--          </div>-->
+
+          <div class="company-title">
+            <h1>{{ dataList[0].name }}</h1>
+
+            <div class="location">
+              <mat-icon>location_on</mat-icon>
+              <span>{{ dataList[0].address }}</span>
+            </div>
+          </div>
+
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <!-- About -->
+<!--        <div class="company-about">-->
+
+<!--          <h2>About the Company</h2>-->
+
+<!--          <p>-->
+<!--            {{ dataList[0].description }}-->
+<!--          </p>-->
+
+<!--        </div>-->
+
+        <!-- Information -->
+        <div class="company-details">
+
+          <div class="detail">
+            <mat-icon>person</mat-icon>
+
+            <div>
+              <span>Recruiter</span>
+              <strong>{{ dataList[0].createdBy?.username }}</strong>
+            </div>
+          </div>
+
+          <div class="detail">
+            <mat-icon>calendar_today</mat-icon>
+
+            <div>
+              <span>Created</span>
+              <strong>{{ dataList[0].created | date:'MMM d, y' }}</strong>
+            </div>
+          </div>
+
+          <div class="detail">
+            <mat-icon>location_on</mat-icon>
+
+            <div>
+              <span>Location</span>
+              <strong>{{ dataList[0].address }}</strong>
+            </div>
+          </div>
+
+        </div>
+
+      </mat-card>
+
+    </div>
+  </div>
+</ng-template>
