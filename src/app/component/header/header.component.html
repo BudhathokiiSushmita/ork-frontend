@@ -13,13 +13,19 @@
     </ul>
     <ng-template #loggedInNav>
       <ul class="navbar-nav ms-auto">
-<!--        customer-->
-        <li class="nav-item">
+<!--        only for applicant-->
+        <li class="nav-item" *ngIf="isApplicant">
             <span class="nav-link text-white d-flex align-items-center cursor-pointer" (click)="showApplications()">
               Applications
             </span>
         </li>
-<!--        customer-->
+
+        <li class="nav-item" *ngIf="isApplicant">
+            <span class="nav-link text-white d-flex align-items-center cursor-pointer" (click)="showWishlist()">
+              Wishlist
+            </span>
+        </li>
+
         <li class="nav-item">
         <span class="nav-link text-white d-flex align-items-center">
           <span class="material-icons me-2">account_circle</span>

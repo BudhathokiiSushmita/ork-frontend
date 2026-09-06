@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit{
   token: string | null = null;
   username: string | null = null;
   roleType: string | null = null;
+  isApplicant: boolean = false;
   constructor(
     private router: Router
   ) {
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit{
       if(this.roleType == ROLEConstant.APPLICANT) {
         console.log("app")
         this.router.navigate(["/my-dashboard"]);
+        this.isApplicant = true;
       } else {
         this.router.navigate(["/nav"]);
       }
@@ -43,6 +45,10 @@ export class HeaderComponent implements OnInit{
 
   showApplications() {
     this.router.navigate(["/my-dashboard/my-applications"]);
+  }
+
+  showWishlist() {
+
   }
 
 }
