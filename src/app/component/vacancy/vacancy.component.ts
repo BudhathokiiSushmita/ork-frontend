@@ -4,13 +4,14 @@ import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {AddVacancyComponent} from "./add-vacancy/add-vacancy.component";
-import {DatePipe, TitleCasePipe} from "@angular/common";
+import {DatePipe, NgIf, TitleCasePipe} from "@angular/common";
 import {EnumValuePipe} from "../../pipe/enumValue.pipe";
+import {NoDataComponent} from "../../generic_component/no-data/no-data.component";
 
 @Component({
   selector: 'app-vacancy',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, DatePipe, EnumValuePipe, TitleCasePipe],
+  imports: [MatTableModule, MatPaginatorModule, DatePipe, EnumValuePipe, TitleCasePipe, NoDataComponent, NgIf],
   templateUrl: './vacancy.component.html',
   styleUrl: './vacancy.component.css'
 })
