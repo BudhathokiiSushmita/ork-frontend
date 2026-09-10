@@ -54,12 +54,15 @@ export class AddVacancyComponent implements OnInit{
   }
 
   submit() {
-    if(this.form.invalid)  this.toast.error("Please fill out all details.");
+    if(this.form.invalid)  {
+      this.toast.error("Please fill out all details.");
+      return;
+    }
 
     const formData = this.form.getRawValue();
     formData.sector = this.sectorList.find(f => f.id == formData.sector);
 
-    this.vacancyService.save(this.form.value).subscribe({
+    this.vacancyService.save(formData).subscribe({
       next: (res: any) => {
         this.activeModal.close();
       }
