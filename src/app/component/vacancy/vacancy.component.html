@@ -7,7 +7,7 @@
         </button>
       </div>
     </div>
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z8"  *ngIf="dataList.length > 0; else noData">
       <table mat-table [dataSource]="dataSource">
 
         <!-- SN Column -->
@@ -55,5 +55,13 @@
                      aria-label="Select pages">
       </mat-paginator>
     </div>
+
+    <ng-template #noData>
+      <app-no-data
+        title="No Vacancies Found"
+        message="There are currently no vacancies available."
+        icon="work_outline">
+      </app-no-data>
+    </ng-template>
   </div>
 </div>
