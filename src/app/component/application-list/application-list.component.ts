@@ -5,7 +5,7 @@ import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ApplicationService} from "../../service/application.service";
 import {CommonModule, DatePipe} from "@angular/common";
-import {ROLEConstant} from "../../constant/APIConstant";
+import {ROLEConstant, STATUSConstant} from "../../constant/APIConstant";
 import {MatMenuModule} from "@angular/material/menu";
 import {ConfirmationModalComponent} from "../confirmation-modal/confirmation-modal.component";
 import {NoDataComponent} from "../../generic_component/no-data/no-data.component";
@@ -26,6 +26,7 @@ export class ApplicationListComponent implements OnInit{
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   roleType = localStorage.getItem("roleType");
   protected readonly ROLEConstant = ROLEConstant;
+  protected readonly STATUSConstant = STATUSConstant;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -76,6 +77,7 @@ export class ApplicationListComponent implements OnInit{
             case 'Forward' : {
               this.applicationService.action(item.id,'FORWARD').subscribe({
                 next: (res: any) => {
+                  this.fetchAllApplications();
                 }
               })
               break;
@@ -84,6 +86,7 @@ export class ApplicationListComponent implements OnInit{
             case 'Backward' : {
               this.applicationService.action(item.id,'BACKWARD').subscribe({
                 next: (res: any) => {
+                  this.fetchAllApplications();
                 }
               })
               break;
@@ -92,6 +95,7 @@ export class ApplicationListComponent implements OnInit{
             case 'Approve' : {
               this.applicationService.action(item.id,'APPROVE').subscribe({
                 next: (res: any) => {
+                  this.fetchAllApplications();
                 }
               })
               break;
