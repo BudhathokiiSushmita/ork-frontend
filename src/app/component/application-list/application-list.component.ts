@@ -105,4 +105,8 @@ export class ApplicationListComponent implements OnInit{
         }
       })
   }
+
+  checkOwnership(username: string): boolean {
+    return username == localStorage.getItem('username');
+  }
 }

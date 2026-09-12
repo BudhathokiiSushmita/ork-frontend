@@ -68,4 +68,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background: #F4F1F8;
 }
 
+.action-button {
+  min-width: 90px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 13px;
+  gap: 4px;
+}
 
+.action-button .material-icons {
+  font-size: 18px;
+}
