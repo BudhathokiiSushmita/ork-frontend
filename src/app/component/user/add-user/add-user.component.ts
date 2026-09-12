@@ -7,6 +7,7 @@ import { RoleService } from "../../../service/role.service";
 import { MatIcon } from "@angular/material/icon";
 import { MatMiniFabButton } from "@angular/material/button";
 import { NgForOf } from "@angular/common";
+import {ROLEConstant} from "../../../constant/APIConstant";
 
 @Component({
   selector: 'app-add-user',
@@ -23,6 +24,10 @@ import { NgForOf } from "@angular/common";
 export class AddUserComponent implements OnInit {
   form: FormGroup;
   roles: Array<any> = [];
+  hasHrOrDirector!: { //! guarantying this will be assigned before using it.
+    hasHr: boolean;
+    hasDirector: boolean;
+  };
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -52,6 +57,13 @@ export class AddUserComponent implements OnInit {
       next: (res: any) => {
         this.roles = res.body || []; // Fallback to empty array if body is undefined
         if (this.roles.length > 0) {
+
+          //filtering role for Recruiter user
+          this.roles = this.roles.filter(f =>
+            !(f === ROLEConstant.HR && this.hasHrOrDirector.hasHr) &&
+            !(f === ROLEConstant.DIRECTOR && this.hasHrOrDirector.hasDirector)
+          );
+
           this.form.patchValue({ role: this.roles[1] }); // Set default role to the first one
         }
       },
