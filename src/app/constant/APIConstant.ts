@@ -17,3 +17,12 @@ export const ROLEConstant = {
   HR: 'HR',
   RECRUITER: 'RECRUITER'
 }
+
+export const STATUSConstant: { [key: string]: string } = {
+  DRAFT: 'Draft',
+  SUBMITTED: 'Submitted',
+  PREVIEW_BY_HR: 'Under HR Review',
+  PREVIEW_BY_DIRECTOR: 'Under Director Review',
+  PREVIEW_BY_RECRUITER: 'Under Recruiter Review',
+  APPROVE: 'Approved'
+};

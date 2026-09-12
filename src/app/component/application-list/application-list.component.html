@@ -14,7 +14,7 @@
     </div>
 
 
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z8" *ngIf="dataList.length > 0; else noData">
       <table mat-table [dataSource]="dataSource">
 
         <!-- SN Column -->
@@ -45,7 +45,16 @@
 
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef> Status </th>
-          <td mat-cell *matCellDef="let element"> {{ element.stageStatus }} </td>
+          <td mat-cell *matCellDef="let element"> {{ STATUSConstant[element.stageStatus] }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recentStageDate">
+          <th mat-header-cell *matHeaderCellDef> Latest Update </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.recentStage.created | date:'MMM d, y' }}
+            <br>
+            {{ element.recentStage.created | date:'h:mm a' }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
@@ -73,5 +82,12 @@
                      aria-label="Select pages">
       </mat-paginator>
     </div>
+    <ng-template #noData>
+      <app-no-data
+        title="No Applications Found"
+        [message]="roleType == ROLEConstant.APPLICANT ? 'You haven not applied to any vacancies yet' : 'There are currently no applications available.'"
+        icon="description">
+      </app-no-data>
+    </ng-template>
   </div>
 </div>
