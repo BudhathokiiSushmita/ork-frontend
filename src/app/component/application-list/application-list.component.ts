@@ -8,13 +8,14 @@ import {CommonModule, DatePipe} from "@angular/common";
 import {ROLEConstant} from "../../constant/APIConstant";
 import {MatMenuModule} from "@angular/material/menu";
 import {ConfirmationModalComponent} from "../confirmation-modal/confirmation-modal.component";
+import {NoDataComponent} from "../../generic_component/no-data/no-data.component";
 
 @Component({
   selector: 'app-application-list',
   standalone: true,
-  imports: [
-    MatTableModule, MatPaginatorModule, DatePipe, CommonModule, MatMenuModule
-  ],
+    imports: [
+        MatTableModule, MatPaginatorModule, DatePipe, CommonModule, MatMenuModule, NoDataComponent
+    ],
   templateUrl: './application-list.component.html',
   styleUrl: './application-list.component.css'
 })

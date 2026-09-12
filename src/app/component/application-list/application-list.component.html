@@ -14,7 +14,7 @@
     </div>
 
 
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z8" *ngIf="dataList.length > 0; else noData">
       <table mat-table [dataSource]="dataSource">
 
         <!-- SN Column -->
@@ -73,5 +73,12 @@
                      aria-label="Select pages">
       </mat-paginator>
     </div>
+    <ng-template #noData>
+      <app-no-data
+        title="No Applications Found"
+        [message]="roleType == ROLEConstant.APPLICANT ? 'You haven not applied to any vacancies yet' : 'There are currently no applications available.'"
+        icon="description">
+      </app-no-data>
+    </ng-template>
   </div>
 </div>
