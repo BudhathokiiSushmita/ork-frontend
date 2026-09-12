@@ -21,7 +21,7 @@ import {NoDataComponent} from "../../generic_component/no-data/no-data.component
 })
 export class ApplicationListComponent implements OnInit{
 
-  displayedColumns: string[] = ['id', 'vacancy', 'company', 'submittedDate', 'status'];
+  displayedColumns: string[] = ['id', 'vacancy', 'company', 'submittedDate', 'status', 'recentStageDate'];
   dataList: Array<String> = new Array<String>();
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   roleType = localStorage.getItem("roleType");
