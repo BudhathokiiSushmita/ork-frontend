@@ -40,6 +40,9 @@ export class UserComponent  implements OnInit{
   }
   ngOnInit(): void {
     this.fetchAllUser();
+    if(this.roleType == ROLEConstant.RECRUITER || this.roleType == ROLEConstant.ADMIN) {
+      this.displayedColumns.push('action');
+    }
   }
 
   openForm() {
@@ -64,10 +67,6 @@ export class UserComponent  implements OnInit{
           && this.dataList.length > 0) {
           this.filterRoleForRecruiter();
         }
-
-        if(this.roleType == ROLEConstant.RECRUITER || this.roleType == ROLEConstant.ADMIN) {
-          this.displayedColumns.push('action');
-        }
       }
     })
   }
@@ -82,7 +81,17 @@ export class UserComponent  implements OnInit{
   performAction(item: any, action: string) {
     switch (action) {
       case 'Edit' : {
-        // open add user form and patch data
+        // open add user form, get user data by username and patch data
+
+        const dialogRef = this.modalService.open(AddUserComponent,);
+        dialogRef.componentInstance.username = item.username;
+        dialogRef.result.then(
+          (res: any) => {
+            //to refresh again
+            this.fetchAllUser();
+          }).catch(() => {
+          // dismissed/closed without saving
+        });
         break;
       }
 

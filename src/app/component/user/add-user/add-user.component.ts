@@ -28,6 +28,7 @@ export class AddUserComponent implements OnInit {
     hasHr: boolean;
     hasDirector: boolean;
   };
+  username! : string;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -59,12 +60,17 @@ export class AddUserComponent implements OnInit {
         if (this.roles.length > 0) {
 
           //filtering role for Recruiter user
-          this.roles = this.roles.filter(f =>
-            !(f === ROLEConstant.HR && this.hasHrOrDirector.hasHr) &&
-            !(f === ROLEConstant.DIRECTOR && this.hasHrOrDirector.hasDirector)
-          );
+          if(this.hasHrOrDirector) {
+            this.roles = this.roles.filter(f =>
+              !(f === ROLEConstant.HR && this.hasHrOrDirector.hasHr) &&
+              !(f === ROLEConstant.DIRECTOR && this.hasHrOrDirector.hasDirector)
+            );
+          }
 
-          this.form.patchValue({ role: this.roles[1] }); // Set default role to the first one
+          // this.form.patchValue({ role: this.roles[1] }); // Set default role to the first one
+          if (this.username) {
+            this.getUserByUsername();
+          }
         }
       },
       error: () => {
@@ -83,18 +89,47 @@ export class AddUserComponent implements OnInit {
       ...this.form.value,
     };
 
-    this.userService.save(userData).subscribe({
-      next: () => {
-        this.toast.success("User added successfully.");
-        this.activeModal.close();
-      },
-      error: () => {
-        this.toast.error("Failed to add user.");
-      }
-    });
+    if (this.username) {
+      userData.oldUsername = this.username;
+      this.userService.edit(userData).subscribe({
+        next: () => {
+          this.activeModal.close();
+        },
+        error: () => {
+          this.toast.error("Failed to add user.");
+        }
+      });
+    } else {
+      this.userService.save(userData).subscribe({
+        next: () => {
+          this.toast.success("User added successfully.");
+          this.activeModal.close();
+        },
+        error: () => {
+          this.toast.error("Failed to add user.");
+        }
+      });
+    }
   }
 
   close(): void {
     this.activeModal.dismiss();
+  }
+
+  getUserByUsername() {
+    this.userService.getUserByUsername(this.username).subscribe({
+      next: (res: any) => {
+
+        this.form.patchValue({
+          username: res.body.username,
+          emailAddress: res.body.emailAddress,
+          contactNumber: res.body.contactNumber,
+          role: res.body.role
+        });
+
+        const roleControl = this.form.get('role');
+        roleControl?.disable({ emitEvent: false });
+      }
+    });
   }
 }

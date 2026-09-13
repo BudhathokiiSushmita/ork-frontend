@@ -39,9 +39,23 @@ export class UserService {
     );
   }
 
+// REQUEST BODY
   save(obj: any): Observable<any> {
     //role in the select bar and then save
     return this.http.post(`${Environment.baseUrl}${this.url}/save`, obj).pipe(
+      tap((res: any) => {
+        this.toastr.success(res.message);
+      }),
+      catchError((err) => {
+        this.toastr.error(err.error.message);
+        return throwError(err);
+      })
+    );
+  }
+
+  edit(obj: any): Observable<any> {
+    //role in the select bar and then save
+    return this.http.post(`${Environment.baseUrl}${this.url}/edit`, obj).pipe(
       tap((res: any) => {
         this.toastr.success(res.message);
       }),
@@ -62,6 +76,17 @@ export class UserService {
       catchError((err) => {
         this.toastr.error(err.error.message);
         return throwError(err);
+      })
+    );
+  }
+
+  getUserByUsername(username: string): Observable<any> {
+    return this.http.get<any>(
+      `${Environment.baseUrl}${this.url}/get-user-by-username/${username}`
+    ).pipe(
+      catchError((err) => {
+        this.toastr.error(err.error.message);
+        return throwError(() => err);
       })
     );
   }
