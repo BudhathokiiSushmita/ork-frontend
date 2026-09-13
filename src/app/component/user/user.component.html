@@ -37,6 +37,20 @@
           <td mat-cell *matCellDef="let element"> {{ element.contactNumber }} </td>
         </ng-container>
 
+        <ng-container matColumnDef="action" *ngIf="roleType == ROLEConstant.ADMIN || roleType == ROLEConstant.RECRUITER">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-stroked-button [matMenuTriggerFor]="menu" class="action-button">
+              Actions
+              <span class="material-icons">expand_more</span>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="performAction(element, 'Edit')">Edit</button>
+              <button mat-menu-item (click)="performAction(element, 'Delete')">Delete</button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>

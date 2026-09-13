@@ -8,13 +8,14 @@ import {AddUserComponent} from "./add-user/add-user.component";
 import {ROLEConstant} from "../../constant/APIConstant";
 import {UserModel} from "../../model/user.model";
 import {NgIf} from "@angular/common";
+import {MatMenu, MatMenuItem, MatMenuModule} from "@angular/material/menu";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [
-    MatTableModule, MatPaginatorModule, NgIf
-  ],
+    imports: [
+        MatTableModule, MatPaginatorModule, NgIf, MatMenu, MatMenuItem, MatMenuModule
+    ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
@@ -26,6 +27,9 @@ export class UserComponent  implements OnInit{
     hasHr: false,
     hasDirector: false
   };
+  roleType = localStorage.getItem("roleType");
+  protected readonly ROLEConstant = ROLEConstant;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(
     private modalService: NgbModal,
@@ -36,6 +40,9 @@ export class UserComponent  implements OnInit{
   }
   ngOnInit(): void {
     this.fetchAllUser();
+    if(this.roleType == ROLEConstant.RECRUITER || this.roleType == ROLEConstant.ADMIN) {
+      this.displayedColumns.push('action');
+    }
   }
 
   openForm() {
@@ -56,7 +63,7 @@ export class UserComponent  implements OnInit{
         this.dataList = res.body;
         this.dataSource.data = this.dataList;
 
-        if (localStorage.getItem("roleType") as string == ROLEConstant.RECRUITER
+        if (this.roleType == ROLEConstant.RECRUITER
           && this.dataList.length > 0) {
           this.filterRoleForRecruiter();
         }
@@ -69,5 +76,29 @@ export class UserComponent  implements OnInit{
       hasHr: this.dataList.some(f => f.role === ROLEConstant.HR),
       hasDirector: this.dataList.some(f => f.role === ROLEConstant.DIRECTOR)
     };
+  }
+
+  performAction(item: any, action: string) {
+    switch (action) {
+      case 'Edit' : {
+        // open add user form, get user data by username and patch data
+
+        const dialogRef = this.modalService.open(AddUserComponent,);
+        dialogRef.componentInstance.username = item.username;
+        dialogRef.result.then(
+          (res: any) => {
+            //to refresh again
+            this.fetchAllUser();
+          }).catch(() => {
+          // dismissed/closed without saving
+        });
+        break;
+      }
+
+      case 'Delete' : {
+        //this is possible, only business logic will solve this.
+        break;
+      }
+    }
   }
 }

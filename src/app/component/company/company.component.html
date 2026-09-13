@@ -71,11 +71,11 @@
 <!--          </div>-->
 
           <div class="company-title">
-            <h1>{{ dataList[0]?.name }}</h1>
+            <h1>{{ dataList[0].name }}</h1>
 
             <div class="location">
               <mat-icon>location_on</mat-icon>
-              <span>{{ dataList[0]?.address }}</span>
+              <span>{{ dataList[0].address }}</span>
             </div>
           </div>
 
@@ -102,7 +102,7 @@
 
             <div>
               <span>Username</span>
-              <strong>{{ dataList[0]?.createdBy?.username }}</strong>
+              <strong>{{ dataList[0].createdBy?.username }}</strong>
             </div>
           </div>
 
@@ -111,7 +111,7 @@
 
             <div>
               <span>Created</span>
-              <strong>{{ dataList[0]?.created | date:'MMM d, y' }}</strong>
+              <strong>{{ dataList[0].created | date:'MMM d, y' }}</strong>
             </div>
           </div>
 
@@ -120,7 +120,7 @@
 
             <div>
               <span>Location</span>
-              <strong>{{ dataList[0]?.address }}</strong>
+              <strong>{{ dataList[0].address }}</strong>
             </div>
           </div>
 
