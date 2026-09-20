@@ -13,6 +13,25 @@
       </div>
     </div>
 
+     <div class="row mb-3" *ngIf="dataList.length > 0">
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Filter by Status</mat-label>
+
+          <mat-select
+            [(value)]="selectedStatus"
+            (selectionChange)="filterByStatus()"
+          >
+            <mat-option value="">All</mat-option>
+
+            <mat-option *ngFor="let status of statusOptions" [value]="status">
+              {{ STATUSConstant[status] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
 
     <div class="mat-elevation-z8" *ngIf="dataList.length > 0; else noData">
       <table mat-table [dataSource]="dataSource">

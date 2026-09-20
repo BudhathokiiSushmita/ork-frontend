@@ -9,12 +9,16 @@ import {ROLEConstant, STATUSConstant} from "../../constant/APIConstant";
 import {MatMenuModule} from "@angular/material/menu";
 import {ConfirmationModalComponent} from "../confirmation-modal/confirmation-modal.component";
 import {NoDataComponent} from "../../generic_component/no-data/no-data.component";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-application-list',
   standalone: true,
     imports: [
-        MatTableModule, MatPaginatorModule, DatePipe, CommonModule, MatMenuModule, NoDataComponent
+        MatTableModule, MatPaginatorModule, DatePipe, CommonModule, MatMenuModule, NoDataComponent,
+        MatFormFieldModule,
+        MatSelectModule,
     ],
   templateUrl: './application-list.component.html',
   styleUrl: './application-list.component.css'
@@ -25,8 +29,12 @@ export class ApplicationListComponent implements OnInit{
   dataList: Array<String> = new Array<String>();
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   roleType = localStorage.getItem("roleType");
+
   protected readonly ROLEConstant = ROLEConstant;
   protected readonly STATUSConstant = STATUSConstant;
+
+  selectedStatus: string = '';
+  statusOptions: string[] = Object.keys(STATUSConstant);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -109,4 +117,16 @@ export class ApplicationListComponent implements OnInit{
   checkOwnership(username: string): boolean {
     return username == localStorage.getItem('username');
   }
+
+   filterByStatus(): void {
+  if (!this.selectedStatus) {
+    this.dataSource.data = this.dataList;
+  } else {
+    this.dataSource.data = this.dataList.filter(
+      (application: any) => application.stageStatus === this.selectedStatus
+    );
+  }
+
+  this.dataSource.paginator?.firstPage();
+}
 }
