@@ -9,12 +9,16 @@ import {ROLEConstant, STATUSConstant} from "../../constant/APIConstant";
 import {MatMenuModule} from "@angular/material/menu";
 import {ConfirmationModalComponent} from "../confirmation-modal/confirmation-modal.component";
 import {NoDataComponent} from "../../generic_component/no-data/no-data.component";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-application-list',
   standalone: true,
     imports: [
-        MatTableModule, MatPaginatorModule, DatePipe, CommonModule, MatMenuModule, NoDataComponent
+        MatTableModule, MatPaginatorModule, DatePipe, CommonModule, MatMenuModule, NoDataComponent,
+        MatFormFieldModule,
+        MatSelectModule,
     ],
   templateUrl: './application-list.component.html',
   styleUrl: './application-list.component.css'
