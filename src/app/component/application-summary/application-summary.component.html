@@ -1,0 +1,516 @@
+<div class="summary-panel">
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="profile-header">
+    <div class="header-top">
+      <button
+        type="button"
+        class="close-button"
+        (click)="closeSummary()"
+        aria-label="Close summary"
+      >
+        <span>&times;</span>
+      </button>
+    </div>
+
+    <div class="profile-content">
+      <div class="avatar">
+        {{ application?.applicationUserInfoId?.firstName?.charAt(0) }}
+        {{ application?.applicationUserInfoId?.lastName?.charAt(0) }}
+      </div>
+
+      <div class="profile-details">
+        <div class="eyebrow">APPLICATION</div>
+
+        <h1>
+          {{ application?.applicationUserInfoId?.firstName }}
+          {{ application?.applicationUserInfoId?.lastName }}
+        </h1>
+
+        <p class="applied-position">
+          {{ application?.vacancy?.title }}
+        </p>
+
+        <p class="company-name">
+          {{ application?.vacancy?.company?.name }}
+        </p>
+      </div>
+    </div>
+
+    <div class="header-footer">
+      <div class="header-meta">
+        <span class="meta-item">
+          <span class="meta-label">Applied</span>
+
+          <span class="meta-value">
+            {{ application?.submittedDate | date: "MMM d, yyyy" }}
+          </span>
+        </span>
+
+        <span class="meta-divider"></span>
+
+        <span class="meta-item">
+          <span class="meta-label">Application ID</span>
+
+          <span class="meta-value"> #{{ application?.id }} </span>
+        </span>
+      </div>
+
+      <span
+        class="status-badge"
+        [class.approved]="application?.stageStatus === 'APPROVE'"
+        [class.submitted]="application?.stageStatus === 'SUBMITTED'"
+        [class.draft]="application?.stageStatus === 'DRAFT'"
+        [class.review]="
+          application?.stageStatus === 'PREVIEW_BY_HR' ||
+          application?.stageStatus === 'PREVIEW_BY_DIRECTOR' ||
+          application?.stageStatus === 'PREVIEW_BY_RECRUITER'
+        "
+      >
+        <span class="status-dot"></span>
+
+        {{
+          STATUSConstant[application?.stageStatus] || application?.stageStatus
+        }}
+      </span>
+    </div>
+  </header>
+
+  <!-- =====================================================
+       CONTENT
+  ====================================================== -->
+
+  <main class="summary-content">
+    <!-- =================================================
+         CANDIDATE INFORMATION
+    ================================================== -->
+
+    <section class="summary-section">
+      <div class="section-header">
+        <div class="section-number">01</div>
+
+        <div>
+          <h2>Candidate Information</h2>
+          <p>Personal details provided with the application</p>
+        </div>
+      </div>
+
+      <div class="candidate-info">
+        <div class="info-block">
+          <span class="info-label">First Name</span>
+          <span class="info-value">
+            {{ application?.applicationUserInfoId?.firstName || "—" }}
+          </span>
+        </div>
+
+        <div class="info-block">
+          <span class="info-label">Last Name</span>
+          <span class="info-value">
+            {{ application?.applicationUserInfoId?.lastName || "—" }}
+          </span>
+        </div>
+
+        <div class="info-block">
+          <span class="info-label">Country</span>
+          <span class="info-value">
+            {{ application?.applicationUserInfoId?.country || "—" }}
+          </span>
+        </div>
+
+        <div class="info-block full-width">
+          <span class="info-label">Address</span>
+          <span class="info-value">
+            {{ application?.applicationUserInfoId?.address || "—" }}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================
+         WORK EXPERIENCE
+    ================================================== -->
+
+    <section class="summary-section">
+      <div class="section-header">
+        <div class="section-number">02</div>
+
+        <div>
+          <h2>Work Experience</h2>
+          <p>Professional background of the candidate</p>
+        </div>
+      </div>
+
+      <div
+        class="experience-list"
+        *ngIf="application?.applicationUserInfoId?.workExperienceList?.length"
+      >
+        <article
+          class="experience-item"
+          *ngFor="
+            let experience of application?.applicationUserInfoId
+              ?.workExperienceList
+          "
+        >
+          <div class="timeline-marker">
+            <span></span>
+          </div>
+
+          <div class="experience-content">
+            <div class="experience-heading">
+              <div>
+                <h3>{{ experience.companyName }}</h3>
+
+                <p class="designation">
+                  {{ experience.designation }}
+                </p>
+              </div>
+
+              <span class="date-range">
+                {{ experience.startDate | date: "MMM yyyy" }}
+
+                <span>—</span>
+
+                {{
+                  experience.endDate
+                    ? (experience.endDate | date: "MMM yyyy")
+                    : "Present"
+                }}
+              </span>
+            </div>
+
+            <div class="responsibilities" *ngIf="experience.responsibilities">
+              <span class="small-heading"> Responsibilities </span>
+
+              <div
+                class="responsibilities-text"
+                [innerHTML]="experience.responsibilities"
+              ></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div
+        class="empty-state"
+        *ngIf="!application?.applicationUserInfoId?.workExperienceList?.length"
+      >
+        <span class="empty-icon">—</span>
+        No work experience was provided.
+      </div>
+    </section>
+
+    <!-- =================================================
+         EDUCATION
+    ================================================== -->
+
+    <section class="summary-section">
+      <div class="section-header">
+        <div class="section-number">03</div>
+
+        <div>
+          <h2>Education</h2>
+          <p>Academic qualifications provided by the candidate</p>
+        </div>
+      </div>
+
+      <div
+        class="education-list"
+        *ngIf="
+          application?.applicationUserInfoId?.educationQualificationList?.length
+        "
+      >
+        <article
+          class="education-item"
+          *ngFor="
+            let education of application?.applicationUserInfoId
+              ?.educationQualificationList
+          "
+        >
+          <div class="education-icon">EDU</div>
+
+          <div class="education-content">
+            <div class="education-main">
+              <h3>
+                {{ education.courseName }}
+              </h3>
+
+              <p>
+                {{ education.institution }}
+              </p>
+            </div>
+
+            <div class="education-meta">
+              <span>
+                {{ education.startDate | date: "MMM yyyy" }}
+                —
+                {{
+                  education.endDate
+                    ? (education.endDate | date: "MMM yyyy")
+                    : "Present"
+                }}
+              </span>
+
+              <span class="grade" *ngIf="education.gradeOrPercentage">
+                {{ education.gradeOrPercentage }}
+              </span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div
+        class="empty-state"
+        *ngIf="
+          !application?.applicationUserInfoId?.educationQualificationList
+            ?.length
+        "
+      >
+        <span class="empty-icon">—</span>
+        No education information was provided.
+      </div>
+    </section>
+
+    <!-- =================================================
+         APPLICATION RESPONSES
+    ================================================== -->
+
+    <section class="summary-section">
+      <div class="section-header">
+        <div class="section-number">04</div>
+
+        <div>
+          <h2>Application Responses</h2>
+          <p>Written responses submitted by the candidate</p>
+        </div>
+      </div>
+
+      <div class="responses">
+        <!-- Profession -->
+
+        <article class="response-card" *ngIf="application?.professionChoice">
+          <div class="response-top">
+            <span class="response-number"> 01 </span>
+
+            <h3>Why are you interested in this profession?</h3>
+          </div>
+
+          <div
+            class="response-text"
+            [innerHTML]="application?.professionChoice"
+          ></div>
+        </article>
+
+        <!-- Company -->
+
+        <article class="response-card" *ngIf="application?.companyChoice">
+          <div class="response-top">
+            <span class="response-number"> 02 </span>
+
+            <h3>Why do you want to work with this company?</h3>
+          </div>
+
+          <div
+            class="response-text"
+            [innerHTML]="application?.companyChoice"
+          ></div>
+        </article>
+
+        <!-- Unique qualities -->
+
+        <article class="response-card" *ngIf="application?.uniqueQualities">
+          <div class="response-top">
+            <span class="response-number"> 03 </span>
+
+            <h3>What unique qualities do you bring?</h3>
+          </div>
+
+          <div
+            class="response-text"
+            [innerHTML]="application?.uniqueQualities"
+          ></div>
+        </article>
+      </div>
+
+      <div
+        class="empty-state"
+        *ngIf="
+          !application?.professionChoice &&
+          !application?.companyChoice &&
+          !application?.uniqueQualities
+        "
+      >
+        No application responses were provided.
+      </div>
+    </section>
+
+    <!-- =================================================
+         DOCUMENTS
+    ================================================== -->
+
+    <section class="summary-section">
+      <div class="section-header">
+        <div class="section-number">05</div>
+
+        <div>
+          <h2>Documents</h2>
+          <p>Files submitted with this application</p>
+        </div>
+      </div>
+
+      <div class="documents">
+        <!-- Resume -->
+
+        <div class="document-card">
+          <div class="document-symbol">PDF</div>
+
+          <div class="document-details">
+            <h3>Resume</h3>
+
+            <span *ngIf="application?.resume"> Document available </span>
+
+            <span class="unavailable" *ngIf="!application?.resume">
+              Not provided
+            </span>
+          </div>
+
+          <a
+            *ngIf="application?.resume"
+            [href]="application.resume"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="view-document"
+          >
+            View
+          </a>
+        </div>
+
+        <!-- Cover Letter -->
+
+        <div class="document-card">
+          <div class="document-symbol">PDF</div>
+
+          <div class="document-details">
+            <h3>Cover Letter</h3>
+
+            <span *ngIf="application?.coverLetter"> Document available </span>
+
+            <span class="unavailable" *ngIf="!application?.coverLetter">
+              Not provided
+            </span>
+          </div>
+
+          <a
+            *ngIf="application?.coverLetter"
+            [href]="application.coverLetter"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="view-document"
+          >
+            View
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================
+         APPLICATION HISTORY
+    ================================================== -->
+
+    <section class="summary-section">
+      <div class="section-header">
+        <div class="section-number">06</div>
+
+        <div>
+          <h2>Application History</h2>
+          <p>Activity and movement through the application process</p>
+        </div>
+      </div>
+
+      <div class="history">
+        <!-- Old stages -->
+
+        <div class="history-item" *ngFor="let stage of application?.oldStages">
+          <div class="history-line">
+            <span class="history-dot"></span>
+          </div>
+
+          <div class="history-content">
+            <div class="history-top">
+              <h3>
+                {{ stage?.action }}
+              </h3>
+
+              <span>
+                {{ stage?.created | date: "MMM d, yyyy • h:mm a" }}
+              </span>
+            </div>
+
+            <div class="history-users">
+              <span *ngIf="stage?.fromUser">
+                From: {{ stage.fromUser.username }}
+              </span>
+
+              <span *ngIf="stage?.toUser">
+                To: {{ stage.toUser.username }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current stage -->
+
+        <div class="history-item current" *ngIf="application?.recentStage">
+          <div class="history-line">
+            <span class="history-dot"></span>
+          </div>
+
+          <div class="history-content">
+            <div class="history-top">
+              <h3>
+                {{ application.recentStage?.action }}
+              </h3>
+
+              <span>
+                {{
+                  application.recentStage?.created
+                    | date: "MMM d, yyyy • h:mm a"
+                }}
+              </span>
+            </div>
+
+            <div class="history-users">
+              <span *ngIf="application.recentStage?.fromUser">
+                From: {{ application.recentStage.fromUser.username }}
+              </span>
+
+              <span *ngIf="application.recentStage?.toUser">
+                To: {{ application.recentStage.toUser.username }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="empty-state"
+        *ngIf="!application?.oldStages?.length && !application?.recentStage"
+      >
+        No application history is available.
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer class="summary-footer">
+    <div class="footer-info">Application #{{ application?.id }}</div>
+
+    <button type="button" class="close-footer-button" (click)="closeSummary()">
+      Close Summary
+    </button>
+  </footer>
+</div>

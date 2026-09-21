@@ -1,0 +1,26 @@
+.summary-container {
+  height: 100vh;
+}
+
+.summary-drawer {
+  width: 60vw;
+  max-width: 60vw;
+}
+
+@media (max-width: 768px) {
+  .summary-drawer {
+    width: 90vw;
+    max-width: 90vw;
+  }
+}
+
+::ng-deep .summary-backdrop {
+  background: rgba(0, 0, 0, 0.15);
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+body.summary-open {
+  overflow: hidden;
+}

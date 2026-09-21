@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource, MatTableModule
-} from "@angular/material/table";
+import {MatTableDataSource, MatTableModule} from "@angular/material/table";
+import { MatSidenav, MatSidenavModule, MatSidenavContainer } from '@angular/material/sidenav';
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ApplicationService} from "../../service/application.service";
@@ -11,15 +11,19 @@ import {ConfirmationModalComponent} from "../confirmation-modal/confirmation-mod
 import {NoDataComponent} from "../../generic_component/no-data/no-data.component";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { ApplicationSummaryComponent } from '../application-summary/application-summary.component';
 
 @Component({
   selector: 'app-application-list',
   standalone: true,
     imports: [
-        MatTableModule, MatPaginatorModule, DatePipe, CommonModule, MatMenuModule, NoDataComponent,
-        MatFormFieldModule,
-        MatSelectModule,
-    ],
+    MatTableModule, MatPaginatorModule, DatePipe, CommonModule, MatMenuModule, NoDataComponent,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatSidenavContainer,
+    MatSidenavModule,
+    ApplicationSummaryComponent
+],
   templateUrl: './application-list.component.html',
   styleUrl: './application-list.component.css'
 })
@@ -37,6 +41,9 @@ export class ApplicationListComponent implements OnInit{
   statusOptions: string[] = Object.keys(STATUSConstant);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('summaryDrawer') summaryDrawer!: MatSidenav;
+
+  selectedApplication: any;
 
   constructor(
     private applicationService: ApplicationService,
@@ -129,4 +136,19 @@ export class ApplicationListComponent implements OnInit{
 
   this.dataSource.paginator?.firstPage();
 }
+
+
+openSummary(application: any): void {
+  this.selectedApplication = application;
+  this.summaryDrawer.open();
+
+  document.body.classList.add('summary-open');
+}
+
+closeSummary(): void {
+  this.summaryDrawer.close();
+
+  document.body.classList.remove('summary-open');
+}
+
 }
