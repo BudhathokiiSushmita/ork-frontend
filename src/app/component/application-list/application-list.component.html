@@ -1,4 +1,8 @@
-<div class="row d-flex justify-content-center mt-2">
+<mat-sidenav-container class="summary-container">
+
+  <mat-sidenav-content>
+    
+    <div class="row d-flex justify-content-center mt-2">
   <div class="col-11">
 
     <!--bread crumbs-->
@@ -97,7 +101,7 @@
                       (click)="performAction(element, 'Backward')">Backward</button>
 
               <button mat-menu-item *ngIf="roleType == ROLEConstant.DIRECTOR && element.stageStatus != 'APPROVE'" (click)="performAction(element, 'Approve')">Approve</button>
-              <button mat-menu-item *ngIf="roleType != ROLEConstant.APPLICANT">View Summary</button>
+              <button mat-menu-item *ngIf="roleType != ROLEConstant.APPLICANT" (click)="openSummary(element)">View Summary</button>
             </mat-menu>
           </td>
         </ng-container>
@@ -120,3 +124,20 @@
     </ng-template>
   </div>
 </div>
+
+  </mat-sidenav-content>
+
+ <mat-sidenav
+    #summaryDrawer
+    position="end"
+    mode="over"
+    class="summary-drawer">
+
+    <app-application-summary
+      [application]="selectedApplication"
+      (close)="closeSummary()">
+    </app-application-summary>
+
+  </mat-sidenav>
+
+</mat-sidenav-container>
