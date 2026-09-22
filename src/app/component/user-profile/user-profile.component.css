@@ -1,0 +1,127 @@
+.profile-header h2 {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.profile-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-header .material-icons {
+  font-size: 28px;
+  color: #4e578c;
+}
+
+.section-header h5 {
+  font-weight: 600;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+
+.form-control {
+  min-height: 44px;
+  border-radius: 7px;
+  border: 1px solid #dee2e6;
+}
+
+.form-control:focus {
+  border-color: #4e578c;
+  box-shadow: 0 0 0 0.15rem rgba(78, 87, 140, 0.15);
+}
+
+.btn-primary {
+  background-color: #4e578c;
+  border-color: #4e578c;
+}
+
+.btn-primary:hover {
+  background-color: #424a78;
+  border-color: #424a78;
+}
+
+.btn-outline-primary {
+  color: #4e578c;
+  border-color: #4e578c;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4e578c;
+  border-color: #4e578c;
+}
+
+.account-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.account-detail:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  color: #777;
+  font-size: 14px;
+}
+
+.detail-value {
+  font-weight: 500;
+}
+
+.change-password-btn {
+  color: #4e578c;
+  border-color: #4e578c;
+}
+
+.change-password-btn:hover {
+  background-color: #4e578c;
+  border-color: #4e578c;
+  color: #fff !important;
+}
+
+.password-input-wrapper {
+  position: relative;
+}
+
+.password-input-wrapper .form-control {
+  padding-right: 45px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+  padding: 0;
+
+  color: #6c757d;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle:hover {
+  color: #4e578c;
+}
+
+.password-toggle .material-icons {
+  font-size: 20px;
+}

@@ -90,4 +90,16 @@ export class UserService {
       })
     );
   }
+
+  changePassword(obj: any): Observable<any> {
+    return this.http.post(`${Environment.baseUrl}${this.url}/change-password`, obj).pipe(
+      tap((res: any) => {
+        this.toastr.success(res.message);
+      }),
+      catchError((err) => {
+        this.toastr.error(err.error.message);
+        return throwError(err);
+      })
+    );
+  }
 }
