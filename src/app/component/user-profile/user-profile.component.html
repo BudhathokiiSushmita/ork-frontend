@@ -1,0 +1,226 @@
+<div class="container py-5">
+  <div class="profile-header mb-4">
+    <h2>My Profile</h2>
+    <p class="text-muted mb-0">View and manage your account information.</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Profile Information -->
+    <div class="col-lg-7">
+      <div class="card profile-card">
+        <div class="card-body p-4">
+          <div class="section-header mb-4">
+            <span class="material-icons">person</span>
+            <div>
+              <h5 class="mb-1">Profile Information</h5>
+              <p class="text-muted mb-0">
+                Update your personal account information.
+              </p>
+            </div>
+          </div>
+
+          <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label"> Email </label>
+
+              <input
+                id="email"
+                type="email"
+                class="form-control"
+                formControlName="email"
+              />
+
+              <div
+                class="text-danger small mt-1"
+                *ngIf="
+                  profileForm.get('email')?.touched &&
+                  profileForm.get('email')?.invalid
+                "
+              >
+                Please enter a valid email address.
+              </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="mb-4">
+              <label for="contact" class="form-label"> Contact </label>
+
+              <input
+                id="contact"
+                type="text"
+                class="form-control"
+                formControlName="contact"
+              />
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button
+                type="submit"
+                class="btn btn-primary px-4"
+                [disabled]="profileForm.invalid || savingProfile"
+              >
+                <span
+                  *ngIf="savingProfile"
+                  class="spinner-border spinner-border-sm me-2"
+                ></span>
+
+                {{ savingProfile ? "Saving..." : "Save Changes" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Information -->
+    <div class="col-lg-5">
+      <div class="card profile-card mb-4">
+        <div class="card-body p-4">
+          <div class="section-header mb-4">
+            <span class="material-icons">account_circle</span>
+            <div>
+              <h5 class="mb-1">Account</h5>
+              <p class="text-muted mb-0">Your account details.</p>
+            </div>
+          </div>
+
+          <div class="account-detail">
+            <span class="detail-label">Role</span>
+            <span class="detail-value">
+              {{ userRole }}
+            </span>
+          </div>
+
+          <div class="account-detail">
+            <span class="detail-label">Username</span>
+            <span class="detail-value">
+              {{ profileForm.get("username")?.value }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Change Password -->
+      <div class="card profile-card">
+        <div class="card-body p-4">
+          <div class="section-header mb-4">
+            <span class="material-icons">lock</span>
+            <div>
+              <h5 class="mb-1">Change Password</h5>
+              <p class="text-muted mb-0">Keep your account secure.</p>
+            </div>
+          </div>
+
+          <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+            <!-- Current Password -->
+            <div class="mb-3">
+              <label for="currentPassword" class="form-label">
+                Current Password
+              </label>
+
+              <div class="password-input-wrapper">
+                <input
+                  id="currentPassword"
+                  [type]="showCurrentPassword ? 'text' : 'password'"
+                  class="form-control"
+                  formControlName="currentPassword"
+                  placeholder="Enter current password"
+                />
+
+                <button
+                  type="button"
+                  class="password-toggle"
+                  (click)="showCurrentPassword = !showCurrentPassword"
+                  aria-label="Toggle current password visibility"
+                >
+                  <span class="material-icons">
+                    {{ showCurrentPassword ? "visibility_off" : "visibility" }}
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- New Password -->
+            <div class="mb-3">
+              <label for="newPassword" class="form-label"> New Password </label>
+
+              <div class="password-input-wrapper">
+                <input
+                  id="newPassword"
+                  [type]="showNewPassword ? 'text' : 'password'"
+                  class="form-control"
+                  formControlName="newPassword"
+                  placeholder="Enter new password"
+                />
+
+                <button
+                  type="button"
+                  class="password-toggle"
+                  (click)="showNewPassword = !showNewPassword"
+                  aria-label="Toggle new password visibility"
+                >
+                  <span class="material-icons">
+                    {{ showNewPassword ? "visibility_off" : "visibility" }}
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-4">
+              <label for="confirmPassword" class="form-label">
+                Confirm New Password
+              </label>
+
+              <div class="password-input-wrapper">
+                <input
+                  id="confirmPassword"
+                  [type]="showConfirmPassword ? 'text' : 'password'"
+                  class="form-control"
+                  formControlName="confirmPassword"
+                  placeholder="Confirm new password"
+                />
+
+                <button
+                  type="button"
+                  class="password-toggle"
+                  (click)="showConfirmPassword = !showConfirmPassword"
+                  aria-label="Toggle confirm password visibility"
+                >
+                  <span class="material-icons">
+                    {{ showConfirmPassword ? "visibility_off" : "visibility" }}
+                  </span>
+                </button>
+              </div>
+
+              <!-- Password mismatch -->
+              <div
+                class="text-danger small mt-1"
+                *ngIf="
+                  passwordForm.hasError('passwordMismatch') &&
+                  passwordForm.get('confirmPassword')?.touched
+                "
+              >
+                Passwords do not match.
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-outline-primary w-100 change-password-btn"
+              [disabled]="passwordForm.invalid || changingPassword"
+            >
+              <span
+                *ngIf="changingPassword"
+                class="spinner-border spinner-border-sm me-2"
+              ></span>
+
+              {{ changingPassword ? "Changing..." : "Change Password" }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

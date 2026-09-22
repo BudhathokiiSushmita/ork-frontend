@@ -51,4 +51,8 @@ export class HeaderComponent implements OnInit{
 
   }
 
+  showProfile() {
+    this.router.navigate(['/user-profile']);
+  }
+
 }

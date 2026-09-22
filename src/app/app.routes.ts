@@ -12,6 +12,7 @@ import {HomeTableComponent} from "./component/home/home-table/home-table.compone
 import {ApplicationFormComponent} from "./component/application-form/application-form.component";
 import {ApplicationListComponent} from "./component/application-list/application-list.component";
 import {ApplicantComponent} from "./component/applicant/applicant.component";
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
 
 export const routes: Routes = [
 
@@ -93,4 +94,8 @@ export const routes: Routes = [
         component: ApplicantComponent
       }]
   },
+  {
+    path: 'user-profile',
+    component: UserProfileComponent
+  }
 ];
